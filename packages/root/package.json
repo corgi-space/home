@@ -1,6 +1,5 @@
 {
-  "name": "root",
-  "type": "module",
+  "name": "@corgi/root",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -13,6 +12,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@corgi/eslint-config": "workspace:*",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^3.1.0"
