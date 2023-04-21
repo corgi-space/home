@@ -1,4 +1,7 @@
-// @see: http://eslint.cn
 module.exports = {
-	extends: ["@corgi/eslint-config"]
+	plugins: ["prettier"],
+	extends: ["@antfu", "plugin:prettier/recommended"],
+	rules: {
+		"no-console": 0
+	}
 }

@@ -1,57 +1,63 @@
 {
-  "name": "corgi-space-admin",
-  "version": "1.0.0",
-  "description": "",
-  "workspaces": [
-    "packages/*"
-  ],
-  "author": "",
-  "license": "ISC",
-  "keywords": [],
-  "scripts": {
-    "dev": "pnpm run -C packages/root dev",
-    "lint": "eslint . --fix",
-    "test": "vitest",
-    "prepare": "husky install",
-    "commit": "cz"
-  },
-  "dependencies": {
-    "@corgi/eslint-config": "workspace:*",
-    "@typescript-eslint/eslint-plugin": "^5.59.0",
-    "autoprefixer": "^10.4.14",
-    "axios": "^1.3.3",
-    "postcss": "^8.4.21",
-    "qs": "^6.11.0",
-    "tailwindcss": "^3.3.1"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "^17.0.3",
-    "@commitlint/config-conventional": "^17.0.3",
-    "@types/node": "^18.13.0",
-    "@types/qs": "^6.9.7",
-    "commitizen": "^4.2.5",
-    "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^8.33.0",
-    "husky": "^8.0.1",
-    "lint-staged": "^13.0.3",
-    "postcss": "^8.4.21",
-    "prettier": "^2.6.2",
-    "prettier-plugin-tailwindcss": "^0.2.7",
-    "pretty-quick": "^3.1.3",
-    "sass": "^1.58.0",
-    "sass-loader": "^13.2.0",
-    "typescript": "^4.9.3",
-    "vite": "^4.1.0",
-    "vitest": "^0.28.4"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx,vue,json,md,yml,yaml}": [
-      "eslint --fix"
-    ]
-  }
+	"name": "corgi-space-admin",
+	"version": "1.0.0",
+	"description": "",
+	"author": "",
+	"license": "ISC",
+	"keywords": [],
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc && vite build",
+		"preview": "vite preview",
+		"lint": "eslint --fix --ext .js,.ts,.tsx ./src",
+		"test": "vitest",
+		"prepare": "husky install",
+		"commit": "cz"
+	},
+	"dependencies": {
+		"axios": "^1.3.3",
+		"qs": "^6.11.0",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"tailwindcss": "^3.3.1"
+	},
+	"devDependencies": {
+		"@antfu/eslint-config": "^0.38.5",
+		"@commitlint/cli": "^17.0.3",
+		"@commitlint/config-conventional": "^17.0.3",
+		"@types/node": "^18.13.0",
+		"@types/qs": "^6.9.7",
+		"@types/react": "^18.0.28",
+		"@types/react-dom": "^18.0.11",
+		"@typescript-eslint/eslint-plugin": "^5.59.0",
+		"@vitejs/plugin-react": "^3.1.0",
+		"autoprefixer": "^10.4.14",
+		"commitizen": "^4.2.5",
+		"cz-conventional-changelog": "^3.3.0",
+		"eslint": "^8.33.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-prettier": "^4.2.1",
+		"husky": "^8.0.1",
+		"lint-staged": "^13.0.3",
+		"postcss": "^8.4.21",
+		"prettier": "^2.6.2",
+		"prettier-plugin-tailwindcss": "^0.2.7",
+		"pretty-quick": "^3.1.3",
+		"sass": "^1.58.0",
+		"sass-loader": "^13.2.0",
+		"typescript": "^4.9.3",
+		"vite": "^4.1.0",
+		"vitest": "^0.28.4"
+	},
+	"config": {
+		"commitizen": {
+			"path": "./node_modules/cz-conventional-changelog"
+		}
+	},
+	"lint-staged": {
+		"*.{js,jsx,ts,tsx,vue,json,md,yml,yaml}": [
+			"eslint --fix",
+			"prettier --write"
+		]
+	}
 }

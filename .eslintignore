@@ -1,4 +1,12 @@
+.vscode/*
+
 build/*.js
 src/assets
 public
 dist
+
+tsconfig.json
+tsconfig.node.json
+package.json
+
+.prettierrc.js

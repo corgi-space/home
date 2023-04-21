@@ -34,14 +34,14 @@ module.exports = {
 	// 这两个选项可用于格式化以给定字符偏移量（分别包括和不包括）开始和结束的代码
 	rangeStart: 0,
 	rangeEnd: Infinity,
-	tailwindConfig: './tailwind.config.js',
-  overrides: [
-    {
-      files: '.prettierrc',
-      options: {
-        parser: 'json',
-      },
-    },
-  ],
-  plugins: [require('prettier-plugin-tailwindcss')],
-};
+	tailwindConfig: "./tailwind.config.js",
+	overrides: [
+		{
+			files: ".prettierrc",
+			options: {
+				parser: "json"
+			}
+		}
+	],
+	plugins: [require("prettier-plugin-tailwindcss")]
+}
