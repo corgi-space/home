@@ -1,12 +1,6 @@
 {
-	"cSpell.words": ["Vitesse"],
-	"prettier.enable": true,
-	"typescript.tsdk": "node_modules/typescript/lib",
+	"prettier.enable": false,
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": true
-	},
-	"files.associations": {
-		"*.css": "postcss"
-	},
-	"vue.features.codeActions.enable": false
+	}
 }
