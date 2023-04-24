@@ -6,7 +6,9 @@ import Tools from "./components/Tools"
 
 const { Header } = AntdLayout
 
-const HeaderItems = [{ icon: <HomeOutlined size={48} />, key: "home" }]
+const HeaderItems = [
+	{ icon: <HomeOutlined size={48} />, key: "home", label: "首页" }
+]
 
 export const Layout: FC = () => {
 	const {
@@ -20,7 +22,7 @@ export const Layout: FC = () => {
 				style={{ background: colorBgContainer }}
 			>
 				<div className="h-full py-2">
-					<img src="/public/logo.png" className="h-full" />
+					<img src="/logo.png" className="h-full" />
 				</div>
 				<Menu
 					mode="horizontal"
@@ -30,7 +32,7 @@ export const Layout: FC = () => {
 				/>
 				<Tools />
 			</Header>
-			<AntdLayout>
+			<AntdLayout className="h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden p-4">
 				<Outlet />
 			</AntdLayout>
 		</AntdLayout>

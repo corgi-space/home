@@ -1,5 +1,9 @@
 function Home() {
-	return <div>主页</div>
+	return (
+		<div>
+			<div className="w-">用户信息</div>
+		</div>
+	)
 }
 
 export default Home
