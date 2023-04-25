@@ -6,7 +6,7 @@ import NotFound from "@/views/404"
 import Test from "@/views/Test"
 import { Layout } from "@/layout"
 import Home from "@/views/Home"
-
+import authRouter from "./authRouter"
 // export { getRouterArray } from "./routerArray"
 
 export const RootRouter = [
@@ -70,4 +70,4 @@ function useAppRouter() {
 	return useRoutes(RootRouter)
 }
 
-export default useAppRouter
+export default authRouter(useAppRouter)

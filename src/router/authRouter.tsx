@@ -1,8 +1,7 @@
-import { useLocation, Navigate } from "react-router-dom"
-import { useAppDispatch, useAppSelector } from "@/store/index"
-import { MenuAction } from "@/store/modules/userStore"
-import { Loading } from "./load"
-import { FC } from "react"
+import { Navigate, useLocation } from "react-router-dom"
+import type { FC } from "react"
+import { useAppSelector } from "@/store/index"
+// import { MenuAction } from "@/store/modules/userStore"
 
 const whiteList = ["/login", "/test"]
 
@@ -12,8 +11,8 @@ const whiteList = ["/login", "/test"]
 function AuthRouterWrapped(WrappedComponent: FC) {
 	const AuthRouter = () => {
 		const { pathname } = useLocation()
-		const { userInfo, menu, menuRequest } = useAppSelector(state => state.userStore)
-		const dispatch = useAppDispatch()
+		const { userInfo } = useAppSelector(state => state.userStore)
+		// const dispatch = useAppDispatch()
 
 		// * 判断是否有Token
 		if (!userInfo || !userInfo.token) {
@@ -29,14 +28,14 @@ function AuthRouterWrapped(WrappedComponent: FC) {
 		}
 
 		// 动态路由
-		if (!menu.length) {
-			// 如果已经发送请求，就不再调用了
-			if (!menuRequest) {
-				dispatch(MenuAction({ roleId: userInfo.roleId }))
-			}
+		// if (!menu.length) {
+		// 	// 如果已经发送请求，就不再调用了
+		// 	if (!menuRequest) {
+		// 		dispatch(MenuAction({ roleId: userInfo.roleId }))
+		// 	}
 
-			return <Loading />
-		}
+		// 	return <Loading />
+		// }
 
 		// * 当前账号有权限返回 Router，正常访问页面
 		return <WrappedComponent />

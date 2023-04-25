@@ -1,4 +1,3 @@
-import { IRouteObject } from "@/types"
 import System from "./modules/system"
 import Course from "./modules/course"
 import Belong from "./modules/belong"
@@ -10,17 +9,20 @@ import Order from "./modules/order"
 import Complete from "./modules/complete"
 import Invoice from "./modules/invoice"
 import Feedback from "./modules/feedback"
+import type { IRouteObject } from "@/types"
 
-export const getRouterArray = (): IRouteObject[] => [
-	System,
-	Course,
-	Belong,
-	Class,
-	Distribution,
-	User,
-	Activity,
-	Order,
-	Complete,
-	Invoice,
-	Feedback
-]
+export function getRouterArray(): IRouteObject[] {
+	return [
+		System,
+		Course,
+		Belong,
+		Class,
+		Distribution,
+		User,
+		Activity,
+		Order,
+		Complete,
+		Invoice,
+		Feedback
+	]
+}

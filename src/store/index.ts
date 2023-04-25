@@ -2,10 +2,12 @@ import { configureStore } from "@reduxjs/toolkit"
 import type { TypedUseSelectorHook } from "react-redux"
 import { useDispatch, useSelector } from "react-redux"
 import appStore from "./modules/appStore"
+import userStore from "./modules/userStore"
 
 export const store = configureStore({
 	reducer: {
-		appStore
+		appStore,
+		userStore
 	}
 })
 

@@ -1,13 +1,13 @@
 // 控制router的业务逻辑
 
-import { IMenu } from "@/api/system/type"
-import { IRouteObject, ISearchItem } from "@/types"
-import { recursionFilter, recursionFn } from "@/utils"
-import { store } from "@/store"
 import { cloneDeep } from "lodash"
-import { HomeRouter, getRouterArray } from "."
 import { lazy } from "react"
 import { Load } from "./load"
+import { HomeRouter, getRouterArray } from "."
+import type { IMenu } from "@/api/system/type"
+import type { IRouteObject, ISearchItem } from "@/types"
+import { recursionFilter, recursionFn } from "@/utils"
+import { store } from "@/store"
 
 export function loadView(view: () => Promise<any>) {
 	return Load(lazy(view))
@@ -22,11 +22,11 @@ function forMatPath(a: string) {
  * 从menu中匹配出routerArray中的路由
  * @param param0
  */
-export const filterRouter = (
+export function filterRouter(
 	routerArray: IRouteObject[] | undefined,
 	menu: IMenu[] | undefined,
 	result: IRouteObject[] = []
-): IRouteObject[] => {
+): IRouteObject[] {
 	if (!routerArray || !routerArray.length) return result
 
 	/**
@@ -35,14 +35,20 @@ export const filterRouter = (
 	 * 提取可能含有的公用路由
 	 */
 	if (!menu || !menu.length) {
-		const publicRouter = recursionFilter<IRouteObject>(routerArray, a => !!a.meta?.public, "out")
+		const publicRouter = recursionFilter<IRouteObject>(
+			routerArray,
+			a => !!a.meta?.public,
+			"out"
+		)
 
 		publicRouter && result.push(...publicRouter)
 		return result
 	}
 
 	routerArray.forEach(item => {
-		const _curMenu = menu.find(e => forMatPath(e.path) === forMatPath(item.name))
+		const _curMenu = menu.find(
+			e => forMatPath(e.path) === forMatPath(item.name)
+		)
 
 		// 更新名称， 与后台返回保持一致
 		if (_curMenu) {
@@ -58,7 +64,11 @@ export const filterRouter = (
 			/**
 			 * 只有先满足父级，才能具有子级
 			 */
-			const publicRouter = recursionFilter<IRouteObject>([item], a => !!a.meta?.public, "out")
+			const publicRouter = recursionFilter<IRouteObject>(
+				[item],
+				a => !!a.meta?.public,
+				"out"
+			)
 
 			publicRouter && result.push(...publicRouter)
 		}

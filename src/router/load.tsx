@@ -1,9 +1,10 @@
-import { FC, Suspense, useEffect } from "react"
+import type { FC } from "react"
+import { Suspense, useEffect } from "react"
 import NProgress from "nprogress"
 import "nprogress/nprogress.css"
 import { Spin } from "antd"
 
-export const Loading = () => {
+export function Loading() {
 	NProgress.start()
 	useEffect(() => {
 		return () => NProgress.done()
@@ -12,7 +13,7 @@ export const Loading = () => {
 	return <Spin size="large"></Spin>
 }
 
-export const Load = (Comp: FC) => {
+export function Load(Comp: FC) {
 	return (
 		<Suspense fallback={<Loading />}>
 			<Comp />

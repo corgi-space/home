@@ -11,9 +11,9 @@ import "dayjs/locale/zh-cn"
 dayjs.locale("zh-cn")
 
 function App() {
-	const { theme } = useAppSelector(state => state.appStore)
+	const { theme, themeColor } = useAppSelector(state => state.appStore)
 
-	const themeConfig = getThemeConfig(theme)
+	const themeConfig = getThemeConfig(theme, themeColor)
 
 	return (
 		<ConfigProvider locale={zhCN} theme={themeConfig}>

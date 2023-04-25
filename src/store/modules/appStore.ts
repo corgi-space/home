@@ -4,12 +4,14 @@ import type { ITheme } from "@/types/index"
 
 function initialState(): {
 	theme: ITheme
+	themeColor: string
 } {
 	let { theme } = getLocalStorage(["theme"])
 	theme = theme || "light"
 	document.documentElement.className = theme
 	return {
-		theme
+		theme,
+		themeColor: "#ff7904"
 	}
 }
 

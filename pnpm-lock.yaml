@@ -21,7 +21,7 @@ importers:
       '@typescript-eslint/parser': ^5.59.0
       '@vitejs/plugin-react': ^3.1.0
       ahooks: ^3.7.5
-      antd: ^5.4.4
+      antd: ^5.4.5
       autoprefixer: ^10.4.14
       axios: ^1.3.3
       commitizen: ^4.2.5
@@ -30,6 +30,8 @@ importers:
       eslint: ^8.33.0
       eslint-config-prettier: ^8.5.0
       eslint-plugin-prettier: ^4.2.1
+      eslint-plugin-react: ^7.32.2
+      eslint-plugin-react-hooks: ^4.6.0
       husky: ^8.0.1
       lint-staged: ^13.0.3
       lodash: ^4.17.21
@@ -57,7 +59,7 @@ importers:
       '@reduxjs/toolkit': 1.9.5_react-redux@8.0.5+react@18.2.0
       '@tinymce/tinymce-react': 4.3.0_react-dom@18.2.0+react@18.2.0
       ahooks: 3.7.6_react@18.2.0
-      antd: 5.4.4_react-dom@18.2.0+react@18.2.0
+      antd: 5.4.5_react-dom@18.2.0+react@18.2.0
       axios: 1.3.5
       dayjs: 1.11.7
       lodash: 4.17.21
@@ -85,6 +87,8 @@ importers:
       eslint: 8.38.0
       eslint-config-prettier: 8.8.0_eslint@8.38.0
       eslint-plugin-prettier: 4.2.1_6472200cd43a82c27b17d90e3a5649bd
+      eslint-plugin-react: 7.32.2_eslint@8.38.0
+      eslint-plugin-react-hooks: 4.6.0_eslint@8.38.0
       husky: 8.0.3
       lint-staged: 13.2.1
       postcss: 8.4.21
@@ -1575,8 +1579,8 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
-  /antd/5.4.4_react-dom@18.2.0+react@18.2.0:
-    resolution: {integrity: sha512-+IJdra4lhqnsGHyOCyaoZkv3MMheHVORBKC57GzRYMld8Rbtymstosx5vSw7ARuY96REkg+enkJQR9qgxSysxA==}
+  /antd/5.4.5_react-dom@18.2.0+react@18.2.0:
+    resolution: {integrity: sha512-rQOrtVJvDKzlRNRlGL9xbd+tB83mkItvkqMU6+7SpGMLovV7GUJaGq9ZFTmn8Dd+eJb2LCNidkpV9pdDMm4cqg==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
@@ -1617,7 +1621,7 @@ packages:
       rc-select: 14.4.3_react-dom@18.2.0+react@18.2.0
       rc-slider: 10.1.1_react-dom@18.2.0+react@18.2.0
       rc-steps: 6.0.0_react-dom@18.2.0+react@18.2.0
-      rc-switch: 4.0.0_react-dom@18.2.0+react@18.2.0
+      rc-switch: 4.1.0_react-dom@18.2.0+react@18.2.0
       rc-table: 7.31.1_react-dom@18.2.0+react@18.2.0
       rc-tabs: 12.5.10_react-dom@18.2.0+react@18.2.0
       rc-textarea: 1.2.2_react-dom@18.2.0+react@18.2.0
@@ -5194,8 +5198,8 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /rc-switch/4.0.0_react-dom@18.2.0+react@18.2.0:
-    resolution: {integrity: sha512-IfrYC99vN0gKaTyjQdqYuADU0eH00SAFHg3jOp8HrmUpJruhV1SohJzrCbPqPraZeX/6X/QKkdLfkdnUub05WA==}
+  /rc-switch/4.1.0_react-dom@18.2.0+react@18.2.0:
+    resolution: {integrity: sha512-TI8ufP2Az9oEbvyCeVE4+90PDSljGyuwix3fV58p7HV2o4wBnVToEyomJRVyTaZeqNPAp+vqeo4Wnj5u0ZZQBg==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
