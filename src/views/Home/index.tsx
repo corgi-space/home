@@ -1,5 +1,4 @@
-import { useAppDispatch, useAppSelector } from "@/store"
-import { changeThemeColor } from "@/store/modules/appStore"
+import useAppStore from "@/store/appStore"
 import { Button, Input } from "antd"
 import { useMemo, useState } from "react"
 
@@ -8,8 +7,7 @@ const test = (num: number) => {
 }
 
 function Home() {
-	const { themeColor } = useAppSelector(state => state.appStore)
-	const dispatch = useAppDispatch()
+	const { themeColor, changeThemeColor } = useAppStore()
 
 	const [num, setNum] = useState(2)
 	const a = useMemo(() => test(num), [num])
@@ -22,7 +20,7 @@ function Home() {
 
 			<Input
 				value={themeColor}
-				onChange={e => dispatch(changeThemeColor(e.target.value))}
+				onChange={e => changeThemeColor(e.target.value)}
 			></Input>
 
 			{/* <Button type="primary" onClick={() => a(num)}>

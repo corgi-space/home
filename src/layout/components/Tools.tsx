@@ -1,7 +1,7 @@
 import { Dropdown, Space } from "antd"
 import { DownOutlined, GithubOutlined } from "@ant-design/icons"
-import { useAppSelector } from "@/store"
 import type { MenuProps } from "antd"
+import useUserStore from "@/store/userStore"
 
 const items: MenuProps["items"] = [
 	{
@@ -19,7 +19,7 @@ const items: MenuProps["items"] = [
 ]
 
 function Tools() {
-	const { userInfo } = useAppSelector(state => state.userStore)
+	const { userInfo } = useUserStore()
 
 	return (
 		<Space size="large" align="center">

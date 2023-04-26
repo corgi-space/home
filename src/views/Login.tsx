@@ -1,19 +1,19 @@
 import { Button, Form, Input, message } from "antd"
 import { LockOutlined, UserOutlined } from "@ant-design/icons"
-import { useAppDispatch } from "@/store"
-import { LoginAction } from "@/store/modules/userStore"
+import useUserStore from "@/store/userStore"
 import type { FC } from "react"
 import type { ILoginParams } from "@/api/user/types"
+import { UserLogin } from "@/api/user"
 
 const LoginForm: FC = () => {
-	const dispatch = useAppDispatch()
+	const { updateUserInfo } = useUserStore()
 
 	const onFinish = async (values: ILoginParams) => {
-		const action = await dispatch(LoginAction(values))
+		const res = await UserLogin(values)
 
-		if (action.type === "user/LoginAction/fulfilled") {
-			message.success("登录成功!")
-		}
+		updateUserInfo(res.data.userInfo)
+
+		message.success("登录成功")
 	}
 
 	return (
