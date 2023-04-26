@@ -1,6 +1,6 @@
 import { Navigate, useLocation } from "react-router-dom"
 import type { FC } from "react"
-import { useAppSelector } from "@/store/index"
+import useUserStore, { tokenComputed } from "@/store/userStore"
 // import { MenuAction } from "@/store/modules/userStore"
 
 const whiteList = ["/login", "/test"]
@@ -11,11 +11,11 @@ const whiteList = ["/login", "/test"]
 function AuthRouterWrapped(WrappedComponent: FC) {
 	const AuthRouter = () => {
 		const { pathname } = useLocation()
-		const { userInfo } = useAppSelector(state => state.userStore)
+		const token = useUserStore(tokenComputed)
 		// const dispatch = useAppDispatch()
 
 		// * 判断是否有Token
-		if (!userInfo || !userInfo.token) {
+		if (!token) {
 			if (whiteList.includes(pathname)) {
 				return <WrappedComponent />
 			} else {

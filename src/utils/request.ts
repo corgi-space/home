@@ -1,7 +1,7 @@
 import { message } from "antd"
 import type { AxiosInstance, InternalAxiosRequestConfig } from "axios"
 import axios from "axios"
-import { store } from "@/store"
+import useUserStore, { tokenComputed } from "@/store/userStore"
 
 interface Result<T = unknown> {
 	code: number
@@ -18,9 +18,7 @@ const service: AxiosInstance = axios.create({
 // request拦截器
 service.interceptors.request.use(
 	(config: InternalAxiosRequestConfig) => {
-		const { userInfo } = store.getState().userStore
-
-		const token = userInfo?.token
+		const token = tokenComputed(useUserStore.getState())
 
 		if (token) {
 			config.headers.token = token
