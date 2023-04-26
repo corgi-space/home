@@ -13,7 +13,7 @@ export const LoginAction = createAsyncThunk("user/login", UserLogin)
 function initialState(): {
 	userInfo: IUserInfo | null
 } {
-	const { userInfo } = getLocalStorage(["userInfo"])
+	const userInfo = getLocalStorage<IUserInfo>("userInfo")
 
 	return {
 		userInfo: userInfo || null

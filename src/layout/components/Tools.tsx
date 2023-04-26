@@ -1,11 +1,15 @@
 import { Dropdown, Space } from "antd"
 import { DownOutlined, GithubOutlined } from "@ant-design/icons"
 import { useAppSelector } from "@/store"
+import type { MenuProps } from "antd"
 
-const items = [
+const items: MenuProps["items"] = [
 	{
 		key: "change",
 		label: "个人信息"
+	},
+	{
+		type: "divider"
 	},
 	{
 		key: "logged",
@@ -18,8 +22,14 @@ function Tools() {
 	const { userInfo } = useAppSelector(state => state.userStore)
 
 	return (
-		<Space align="center">
-			<GithubOutlined />
+		<Space size="large" align="center">
+			<a
+				href="https://github.com/xluoyu/corgi-space"
+				target="__blank"
+				style={{ fontSize: "18px" }}
+			>
+				<GithubOutlined />
+			</a>
 
 			<Dropdown
 				menu={{ items }}

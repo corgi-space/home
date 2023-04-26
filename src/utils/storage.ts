@@ -1,23 +1,20 @@
 const ExpirationTime = 7 * 24 * 60 * 60 * 1000 // 过期时间 7天
 
-export function getLocalStorage(list: string[]): Record<string, unknown> {
-	const res: Record<string, unknown> = {}
+export function getLocalStorage<T = unknown>(key: string): T | null {
+	let res: unknown
+	const item = localStorage.getItem(key)
+	if (item) {
+		const { value, _expirationTime } = JSON.parse(item)
 
-	list.forEach(key => {
-		const item = localStorage.getItem(key)
-		if (item) {
-			const { value, _expirationTime } = JSON.parse(item)
-
-			if (_expirationTime > new Date().getTime()) {
-				res[key] = value
-			} else {
-				localStorage.removeItem(key)
-				res[key] = null
-			}
+		if (_expirationTime > new Date().getTime()) {
+			res = value
+		} else {
+			localStorage.removeItem(key)
+			return null
 		}
-	})
+	}
 
-	return res
+	return res as T
 }
 
 export function setLocalStorage(
