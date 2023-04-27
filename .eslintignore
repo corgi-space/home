@@ -10,3 +10,5 @@ tsconfig.node.json
 package.json
 
 .prettierrc.js
+
+*.md

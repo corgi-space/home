@@ -2,6 +2,8 @@ import { Dropdown, Space } from "antd"
 import { DownOutlined, GithubOutlined } from "@ant-design/icons"
 import type { MenuProps } from "antd"
 import useUserStore from "@/store/userStore"
+import MessageBox from "./MessageBox"
+import Setting from "./Setting"
 
 const items: MenuProps["items"] = [
 	{
@@ -19,24 +21,39 @@ const items: MenuProps["items"] = [
 ]
 
 function Tools() {
-	const { userInfo } = useUserStore()
+	const { userInfo, clear } = useUserStore()
+
+	const onClick: MenuProps["onClick"] = ({ key }) => {
+		switch (key) {
+			case "info":
+				break
+			case "logged":
+				clear()
+				break
+		}
+	}
 
 	return (
-		<Space size="large" align="center">
+		<Space size="middle" align="center">
 			<a
 				href="https://github.com/xluoyu/corgi-space"
 				target="__blank"
 				style={{ fontSize: "18px" }}
+				className="px-2 text-black"
 			>
 				<GithubOutlined />
 			</a>
 
+			<Setting />
+
+			<MessageBox />
+
 			<Dropdown
-				menu={{ items }}
+				menu={{ items, onClick }}
 				placement="bottom"
 				arrow={{ pointAtCenter: true }}
 			>
-				<a className="cursor-pointer text-[var()]">
+				<a className="cursor-pointer text-black">
 					<Space align="center">
 						<img
 							src="/default_photo.gif"
