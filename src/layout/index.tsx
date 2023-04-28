@@ -18,7 +18,7 @@ export const Layout: FC = () => {
 	return (
 		<AntdLayout>
 			<Header
-				className="flex justify-between"
+				className="flex justify-between px-4"
 				style={{ background: colorBgContainer }}
 			>
 				<div className="h-full py-2">

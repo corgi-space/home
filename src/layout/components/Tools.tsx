@@ -1,13 +1,22 @@
 import { Dropdown, Space } from "antd"
-import { DownOutlined, GithubOutlined } from "@ant-design/icons"
+import {
+	DownOutlined,
+	GithubOutlined,
+	InfoCircleOutlined,
+	SettingOutlined
+} from "@ant-design/icons"
 import type { MenuProps } from "antd"
 import useUserStore from "@/store/userStore"
 import MessageBox from "./MessageBox"
-import Setting from "./Setting"
+import { useRef } from "react"
+import SettingDrawer, {
+	IDrawerOptions,
+	ISettingDrawerRef
+} from "./SettingDrawer"
 
 const items: MenuProps["items"] = [
 	{
-		key: "change",
+		key: "user",
 		label: "个人信息"
 	},
 	{
@@ -23,14 +32,21 @@ const items: MenuProps["items"] = [
 function Tools() {
 	const { userInfo, clear } = useUserStore()
 
+	const SettingDrawerRef = useRef<ISettingDrawerRef>(null)
+
 	const onClick: MenuProps["onClick"] = ({ key }) => {
 		switch (key) {
-			case "info":
+			case "user":
+				openSettingDrawer(key)
 				break
 			case "logged":
 				clear()
 				break
 		}
+	}
+
+	const openSettingDrawer = (key: IDrawerOptions) => {
+		SettingDrawerRef.current?.open(key)
 	}
 
 	return (
@@ -40,11 +56,26 @@ function Tools() {
 				target="__blank"
 				style={{ fontSize: "18px" }}
 				className="px-2 text-black"
+				title="Github"
 			>
 				<GithubOutlined />
 			</a>
 
-			<Setting />
+			<a
+				className="cursor-pointer px-2 text-lg text-black"
+				title="关于"
+				onClick={() => openSettingDrawer("info")}
+			>
+				<InfoCircleOutlined />
+			</a>
+
+			<a
+				className="cursor-pointer px-2 text-lg text-black"
+				title="设置"
+				onClick={() => openSettingDrawer("setting")}
+			>
+				<SettingOutlined />
+			</a>
 
 			<MessageBox />
 
@@ -65,6 +96,8 @@ function Tools() {
 					</Space>
 				</a>
 			</Dropdown>
+
+			<SettingDrawer ref={SettingDrawerRef} />
 		</Space>
 	)
 }

@@ -1,13 +1,11 @@
-import { Button, Form, Input } from "antd"
+import { Button, Form, Input, message } from "antd"
 import { LockOutlined, UserOutlined } from "@ant-design/icons"
 import useUserStore from "@/store/userStore"
-import { useContext, type FC } from "react"
+import type { FC } from "react"
 import type { ILoginParams } from "@/api/user/types"
 import { UserLogin } from "@/api/user"
-import { AntdContext } from "@/App"
 
 const LoginForm: FC = () => {
-	const antdContext = useContext(AntdContext)
 	const { updateUserInfo } = useUserStore()
 
 	const onFinish = async (values: ILoginParams) => {
@@ -15,7 +13,7 @@ const LoginForm: FC = () => {
 
 		updateUserInfo(res.data.userInfo)
 
-		antdContext?.messageApi.success("登录成功")
+		message.success("登录成功")
 	}
 
 	return (

@@ -21,6 +21,12 @@ export interface DrawerRef<T = unknown> {
 
 type IOnClose = () => void | boolean | Promise<boolean>
 
+/**
+ * A => props
+ * T => options
+ * @param children
+ * @param drawerProps
+ */
 function createDrawer<A = unknown, T = unknown>(
 	children: ({
 		props,

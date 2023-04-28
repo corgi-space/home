@@ -21,7 +21,7 @@ const MessageBoxContent = () => {
 function MessageBox() {
 	return (
 		<Popover placement="bottom" content={MessageBoxContent} trigger="click">
-			<a className="cursor-pointer px-2 text-lg text-black">
+			<a className="cursor-pointer px-2 text-lg text-black" title="消息">
 				<BellOutlined />
 			</a>
 		</Popover>
