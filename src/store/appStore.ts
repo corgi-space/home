@@ -21,9 +21,11 @@ type Action = {
  * @param position
  */
 window.savePosition = async (position: IPosition) => {
+	const adm1 = position.region || position.city
+
 	const cityId = await axios
 		.get(
-			`https://geoapi.qweather.com/v2/city/lookup?location=${position.region}&adm=${position.city}&key=${WeatherKey}&lang=zh`
+			`https://geoapi.qweather.com/v2/city/lookup?location=${adm1}&adm=${position.pro}&key=${WeatherKey}&lang=zh`
 		)
 		.then(res => res.data.location[0].id as number)
 	position.cityId = cityId
