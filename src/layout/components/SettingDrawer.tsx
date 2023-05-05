@@ -17,6 +17,34 @@ type ITagItem = {
 	content: ReactNode
 }
 
+/**
+ * 左侧按钮
+ */
+const tags: ITagItem[] = [
+	{
+		key: "user",
+		icon: <UserOutlined />,
+		title: "个人信息",
+		content: "这是信息"
+	},
+	{
+		key: "setting",
+		icon: <SettingOutlined />,
+		title: "平台设置",
+		content: "平台"
+	},
+	{
+		key: "info",
+		icon: <InfoCircleOutlined />,
+		title: "关于",
+		content: "关于我"
+	}
+]
+
+/**
+ * 左侧按钮组件
+ * @param props
+ */
 const TagItem: FC<{
 	icon: ReactNode
 	title?: string
@@ -35,7 +63,7 @@ const TagItem: FC<{
 			className={
 				baseClassName +
 				" " +
-				(active ? "w-[60px] bg-white" : "w-[40px] bg-[#1b2835] text-white")
+				(active ? "w-[60px] bg-white" : "w-[40px] bg-[#323d47] text-white")
 			}
 			onClick={() => onClick()}
 			title={title}
@@ -49,22 +77,6 @@ export type ISettingDrawerRef = DrawerRef<IDrawerOptions>
 const SettingDrawer = createDrawer<{}, IDrawerOptions>(
 	({ options, handle }) => {
 		const [active, setActive] = useState<IDrawerOptions>("user")
-
-		const tags: ITagItem[] = [
-			{ key: "user", icon: <UserOutlined />, title: "个人信息", content: null },
-			{
-				key: "setting",
-				icon: <SettingOutlined />,
-				title: "平台设置",
-				content: null
-			},
-			{
-				key: "info",
-				icon: <InfoCircleOutlined />,
-				title: "关于",
-				content: null
-			}
-		]
 
 		useEffect(() => {
 			options && setActive(options)

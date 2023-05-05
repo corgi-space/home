@@ -29,6 +29,9 @@ const items: MenuProps["items"] = [
 	}
 ]
 
+export const aClassName =
+	"block h-full cursor-pointer px-2 text-black text-[18px]"
+
 function Tools() {
 	const { userInfo, clear } = useUserStore()
 
@@ -54,15 +57,14 @@ function Tools() {
 			<a
 				href="https://github.com/xluoyu/corgi-space"
 				target="__blank"
-				style={{ fontSize: "18px" }}
-				className="px-2 text-black"
+				className={aClassName}
 				title="Github"
 			>
 				<GithubOutlined />
 			</a>
 
 			<a
-				className="cursor-pointer px-2 text-lg text-black"
+				className={aClassName}
 				title="关于"
 				onClick={() => openSettingDrawer("info")}
 			>
@@ -70,7 +72,7 @@ function Tools() {
 			</a>
 
 			<a
-				className="cursor-pointer px-2 text-lg text-black"
+				className={aClassName}
 				title="设置"
 				onClick={() => openSettingDrawer("setting")}
 			>
