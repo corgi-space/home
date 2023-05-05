@@ -16,12 +16,12 @@ type IWeather = {
 	precip: string // 降水量
 }
 
-type Indices = {
-	name: string
-	category: string
-	text: string
-	type: string
-}[]
+// type Indices = {
+// 	name: string
+// 	category: string
+// 	text: string
+// 	type: string
+// }[]
 
 /**
  * 获取天气信息
@@ -67,46 +67,46 @@ const getWeather = async (cityId: number): Promise<IWeather> => {
  * 获取天气指数
  * @param cityId
  */
-const getIndices = async (cityId: number): Promise<Indices> => {
-	let indices = getStorage<Indices>("indices", sessionStorage)
+// const getIndices = async (cityId: number): Promise<Indices> => {
+// 	let indices = getStorage<Indices>("indices", sessionStorage)
 
-	if (indices) {
-		return indices
-	}
-	indices = await axios
-		.get(
-			`https://devapi.qweather.com/v7/indices/1d?key=${WeatherKey}&location=${cityId}&type=1,2,3,5`
-		)
-		.then(res => res.data.daily)
+// 	if (indices) {
+// 		return indices
+// 	}
+// 	indices = await axios
+// 		.get(
+// 			`https://devapi.qweather.com/v7/indices/1d?key=${WeatherKey}&location=${cityId}&type=1,2,3,5`
+// 		)
+// 		.then(res => res.data.daily)
 
-	setStorage({
-		key: "indices",
-		data: indices,
-		fn: sessionStorage,
-		expirationTime: 12 * 60 * 60 * 1000 // 过期时间 12个小时
-	})
+// 	setStorage({
+// 		key: "indices",
+// 		data: indices,
+// 		fn: sessionStorage,
+// 		expirationTime: 12 * 60 * 60 * 1000 // 过期时间 12个小时
+// 	})
 
-	return indices as Indices
-}
+// 	return indices as Indices
+// }
 
 const useWeather = () => {
 	const { position } = useAppStore()
 	const [weather, setWeather] = useState<IWeather>()
-	const [indices, setIndices] = useState<Indices>()
+	// const [indices, setIndices] = useState<Indices>()
 
 	const init = async () => {
 		if (!position) return
 
 		setWeather(await getWeather(position.cityId))
 
-		setIndices(await getIndices(position.cityId))
+		// setIndices(await getIndices(position.cityId))
 	}
 
 	useEffect(() => {
 		init()
 	}, [position])
 
-	return { weather, indices }
+	return { weather }
 }
 
 export default useWeather
