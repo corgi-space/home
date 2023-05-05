@@ -1,9 +1,5 @@
 import { create } from "zustand"
-import {
-	getLocalStorage,
-	removeLocalStorege,
-	setLocalStorage
-} from "@/utils/storage"
+import { getStorage, removeStorege, setStorage } from "@/utils/storage"
 import { IUserInfo } from "@/api/user/types"
 // export const LoginAction = createAsyncThunk("user/login", UserLogin)
 
@@ -15,15 +11,18 @@ type Store = {
 }
 
 const useUserStore = create<Store>(set => ({
-	userInfo: getLocalStorage<IUserInfo>("userInfo") || null,
+	userInfo: getStorage<IUserInfo>("userInfo") || null,
 
 	updateUserInfo: val => {
 		set({ userInfo: val })
-		setLocalStorage("userInfo", val)
+		setStorage({
+			key: "userInfo",
+			data: val
+		})
 	},
 
 	clear: () => {
-		removeLocalStorege("userInfo")
+		removeStorege("userInfo")
 		set({ userInfo: null })
 	}
 }))

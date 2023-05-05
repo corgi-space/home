@@ -1,15 +1,18 @@
 const ExpirationTime = 7 * 24 * 60 * 60 * 1000 // 过期时间 7天
 
-export function getLocalStorage<T = unknown>(key: string): T | null {
+export function getStorage<T = unknown>(
+	key: string,
+	fn: Storage = localStorage
+): T | null {
 	let res: unknown
-	const item = localStorage.getItem(key)
+	const item = fn.getItem(key)
 	if (item) {
 		const { value, _expirationTime } = JSON.parse(item)
 
 		if (_expirationTime === "max" || _expirationTime > new Date().getTime()) {
 			res = value
 		} else {
-			localStorage.removeItem(key)
+			fn.removeItem(key)
 			return null
 		}
 	}
@@ -17,12 +20,19 @@ export function getLocalStorage<T = unknown>(key: string): T | null {
 	return res as T
 }
 
-export function setLocalStorage(
-	key: string,
-	data: unknown,
+export function setStorage({
+	key,
+	data,
+	expirationTime,
+	fn
+}: {
+	key: string
+	data: unknown
 	expirationTime?: number
-) {
-	localStorage.setItem(
+	fn?: Storage
+}) {
+	fn = fn || localStorage
+	fn.setItem(
 		key,
 		JSON.stringify({
 			value: data,
@@ -34,6 +44,6 @@ export function setLocalStorage(
 	)
 }
 
-export function removeLocalStorege(key: string) {
-	localStorage.removeItem(key)
+export function removeStorege(key: string, fn: Storage = localStorage) {
+	fn.removeItem(key)
 }

@@ -1,5 +1,5 @@
 import { create } from "zustand"
-import { getLocalStorage, setLocalStorage } from "@/utils/storage"
+import { getStorage, setStorage } from "@/utils/storage"
 import type { IPosition, ITheme } from "@/types/index"
 import { ThemeColor } from "@/config"
 import { loadScript } from "@/utils"
@@ -28,29 +28,33 @@ window.savePosition = async (position: IPosition) => {
 		.then(res => res.data.location[0].id as number)
 	position.cityId = cityId
 
+	setStorage({
+		key: "position",
+		data: position,
+		fn: sessionStorage
+	})
 	useAppStore.setState(() => ({ position: position }))
-	sessionStorage.setItem("position", JSON.stringify(position))
 }
 
 const getPosition = () => {
-	let position = sessionStorage.getItem("position")
+	let position = getStorage<IPosition>("position", sessionStorage)
 
 	if (!position) {
 		loadScript(`http://whois.pconline.com.cn/ipJson.jsp?callback=savePosition`)
 		return null
 	} else {
-		return JSON.parse(position) as IPosition
+		return position
 	}
 }
 
 const useAppStore = create<State & Action>(set => ({
-	theme: getLocalStorage<ITheme>("theme") || "light",
-	themeColor: getLocalStorage<string>("themeColor") || ThemeColor,
+	theme: getStorage<ITheme>("theme") || "light",
+	themeColor: getStorage<string>("themeColor") || ThemeColor,
 	position: getPosition(),
 
-	change: (key, val) => {
-		setLocalStorage(key, val)
-		set(() => ({ [key]: val }))
+	change: (key, data) => {
+		setStorage({ key, data })
+		set(() => ({ [key]: data }))
 	}
 }))
 

@@ -1,6 +1,6 @@
 import { WeatherKey } from "@/config"
 import useAppStore from "@/store/appStore"
-import { getLocalStorage, setLocalStorage } from "@/utils/storage"
+import { getStorage, setStorage } from "@/utils/storage"
 import axios from "axios"
 import { useEffect, useState } from "react"
 
@@ -28,7 +28,7 @@ type Indices = {
  * @param cityId
  */
 const getWeather = async (cityId: number): Promise<IWeather> => {
-	let weather = getLocalStorage<IWeather>("weather")
+	let weather = getStorage<IWeather>("weather", sessionStorage)
 
 	if (weather) {
 		return weather
@@ -53,7 +53,12 @@ const getWeather = async (cityId: number): Promise<IWeather> => {
 			}
 		})
 
-	setLocalStorage("weather", weather, 1 * 60 * 60 * 1000)
+	setStorage({
+		key: "weather",
+		data: weather,
+		fn: sessionStorage,
+		expirationTime: 1 * 60 * 60 * 1000 // 过期时间 1个小时
+	})
 
 	return weather as IWeather
 }
@@ -63,7 +68,7 @@ const getWeather = async (cityId: number): Promise<IWeather> => {
  * @param cityId
  */
 const getIndices = async (cityId: number): Promise<Indices> => {
-	let indices = getLocalStorage<Indices>("indices")
+	let indices = getStorage<Indices>("indices", sessionStorage)
 
 	if (indices) {
 		return indices
@@ -74,7 +79,12 @@ const getIndices = async (cityId: number): Promise<Indices> => {
 		)
 		.then(res => res.data.daily)
 
-	setLocalStorage("indices", indices, 24 * 60 * 60 * 1000)
+	setStorage({
+		key: "indices",
+		data: indices,
+		fn: sessionStorage,
+		expirationTime: 12 * 60 * 60 * 1000 // 过期时间 12个小时
+	})
 
 	return indices as Indices
 }
