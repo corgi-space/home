@@ -6,7 +6,7 @@ export function getLocalStorage<T = unknown>(key: string): T | null {
 	if (item) {
 		const { value, _expirationTime } = JSON.parse(item)
 
-		if (_expirationTime > new Date().getTime()) {
+		if (_expirationTime === "max" || _expirationTime > new Date().getTime()) {
 			res = value
 		} else {
 			localStorage.removeItem(key)
@@ -26,7 +26,10 @@ export function setLocalStorage(
 		key,
 		JSON.stringify({
 			value: data,
-			_expirationTime: new Date().getTime() + (expirationTime || ExpirationTime)
+			_expirationTime:
+				expirationTime === 0
+					? "max"
+					: new Date().getTime() + (expirationTime || ExpirationTime)
 		})
 	)
 }

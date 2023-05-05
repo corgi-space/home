@@ -10,7 +10,7 @@ function Home() {
 		<Row gutter={16} className="h-full">
 			<Col span={12}>
 				<div className="row-start-auto flex h-full flex-col gap-4">
-					<UserCard className="h-[140px]" hoverable />
+					<UserCard className="h-[120px]" hoverable />
 					<WorkCard className="h-[280px]" hoverable />
 					<MessageCard className="flex-1" hoverable />
 				</div>

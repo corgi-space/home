@@ -1,4 +1,4 @@
-import { Dropdown, Space } from "antd"
+import { Avatar, Dropdown, Space } from "antd"
 import {
 	DownOutlined,
 	GithubOutlined,
@@ -88,11 +88,8 @@ function Tools() {
 			>
 				<a className="cursor-pointer text-black">
 					<Space align="center">
-						<img
-							src="/default_photo.gif"
-							alt=""
-							className="h-10 w-10 align-middle"
-						/>
+						<Avatar src={userInfo?.photo} size="large" />
+
 						{userInfo?.userName}
 						<DownOutlined />
 					</Space>

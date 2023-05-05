@@ -18,10 +18,12 @@ const service: AxiosInstance = axios.create({
 // request拦截器
 service.interceptors.request.use(
 	(config: InternalAxiosRequestConfig) => {
-		const token = tokenComputed(useUserStore.getState())
+		if (!config.url?.includes("https")) {
+			const token = tokenComputed(useUserStore.getState())
 
-		if (token) {
-			config.headers.token = token
+			if (token) {
+				config.headers.token = token
+			}
 		}
 
 		/**
