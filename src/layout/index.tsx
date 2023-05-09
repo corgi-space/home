@@ -29,7 +29,7 @@ export const Layout: FC = () => {
 				className="flex justify-between px-4"
 				style={{ background: colorBgContainer }}
 			>
-				<div className="h-full px-2 py-2">
+				<div className="h-full px-2 py-3">
 					<img src="/logo.png" className="h-full" />
 				</div>
 				<Menu

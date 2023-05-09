@@ -16,7 +16,7 @@ function App() {
 		[theme, themeColor]
 	)
 	return (
-		<ConfigProvider locale={zhCN} theme={themeConfig}>
+		<ConfigProvider locale={zhCN} theme={themeConfig} componentSize="small">
 			{/* <AliveScope> */}
 			<AppRouter />
 			{/* </AliveScope> */}

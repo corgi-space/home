@@ -63,7 +63,7 @@ const TagItem: FC<{
 			className={
 				baseClassName +
 				" " +
-				(active ? "w-[60px] bg-white" : "w-[40px] bg-[#323d47] text-white")
+				(active ? "w-[60px] bg-white" : "w-[40px] bg-[#4a5157] text-white")
 			}
 			onClick={() => onClick()}
 			title={title}
@@ -106,7 +106,7 @@ const SettingDrawer = createDrawer<{}, IDrawerOptions>(
 						icon={<CloseOutlined />}
 						onClick={handle.close}
 						active={false}
-						className="mb-5"
+						className="mb-5 hover:text-danger-color"
 					></TagItem>
 					{tags.map(item => (
 						<TagItem

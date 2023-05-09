@@ -21,6 +21,7 @@ type IWeather = {
 // 	category: string
 // 	text: string
 // 	type: string
+// 	level: string
 // }[]
 
 /**
@@ -75,7 +76,7 @@ const getWeather = async (cityId: number): Promise<IWeather> => {
 // 	}
 // 	indices = await axios
 // 		.get(
-// 			`https://devapi.qweather.com/v7/indices/1d?key=${WeatherKey}&location=${cityId}&type=1,2,3,5`
+// 			`https://devapi.qweather.com/v7/indices/1d?key=${WeatherKey}&location=${cityId}&type=1,3`
 // 		)
 // 		.then(res => res.data.daily)
 

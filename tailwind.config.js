@@ -3,7 +3,8 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				"theme-color": "var(--theme-color)"
+				"theme-color": "var(--theme-color)",
+				"danger-color": "var(--danger-color)"
 			}
 		}
 	},

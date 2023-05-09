@@ -8,6 +8,7 @@ html, body, #root{
 
 :root{
   --theme-color: #1677ff;
+  --danger-color: #ff4d4f;
 }
 
 p{

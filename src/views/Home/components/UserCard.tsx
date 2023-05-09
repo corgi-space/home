@@ -6,11 +6,10 @@ import useAppStore from "@/store/appStore"
 const WeatherComp = () => {
 	const { position } = useAppStore()
 	const { weather } = useWeather()
-
 	const adm1 = position?.region || position?.city
 
 	return weather ? (
-		<a href={weather.fxLink} target="__blank">
+		<a href={weather.fxLink} target="__blank" className="flex">
 			<div className="flex flex-col items-end justify-between">
 				<p className="my-0">{adm1}</p>
 
