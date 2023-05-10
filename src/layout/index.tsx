@@ -8,6 +8,7 @@ import {
 	PayCircleOutlined
 } from "@ant-design/icons"
 import Tools from "./components/Tools"
+import Wallpaper from "./components/Bg"
 
 const { Header } = AntdLayout
 
@@ -22,13 +23,11 @@ export const Layout: FC = () => {
 	const {
 		token: { colorBgContainer }
 	} = theme.useToken()
-
+	console.log(colorBgContainer)
 	return (
-		<AntdLayout>
-			<Header
-				className="flex justify-between px-4"
-				style={{ background: colorBgContainer }}
-			>
+		<AntdLayout className="bg-transparent">
+			<Wallpaper />
+			<Header className="glass flex justify-between px-4">
 				<div className="h-full px-2 py-3">
 					<img src="/logo.png" className="h-full" />
 				</div>
@@ -36,11 +35,11 @@ export const Layout: FC = () => {
 					mode="horizontal"
 					defaultSelectedKeys={["home"]}
 					items={HeaderItems}
-					className="flex-1 px-5"
+					className="flex-1 bg-transparent px-5"
 				/>
 				<Tools />
 			</Header>
-			<AntdLayout className="h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden p-4">
+			<AntdLayout className="h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden bg-transparent p-4">
 				<Outlet />
 			</AntdLayout>
 		</AntdLayout>

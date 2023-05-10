@@ -9,8 +9,17 @@ html, body, #root{
 :root{
   --theme-color: #1677ff;
   --danger-color: #ff4d4f;
+  --glass-opacity: 0.5;
+  --glass-blur: 5px;
+  --wallpaper-blur: 5px;
+  --wallpaper-opacity: 0.1;
 }
 
 p{
   margin: 5px 0;
+}
+
+.glass{
+  background: rgba(255,255,255,var(--glass-opacity));
+  backdrop-filter: blur(var(--glass-blur));
 }
