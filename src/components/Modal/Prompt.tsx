@@ -5,11 +5,13 @@ import { useReactive } from "ahooks"
 import { isElement } from "react-dom/test-utils"
 import { DefaultOptionType } from "antd/es/select"
 
+type IResult = string | number | boolean | null
+
 type PromptOptions = {
 	title?: string // 弹框标题
 	content?: string | JSX.Element // 说明文本
 	type?: "text" | "textarea" | "number" | "emali" | "select" | "switch"
-	value?: unknown // 默认值
+	value?: IResult // 默认值
 	placeholder?: string
 	fieldNames?: { label: string; value: string } // select用
 	options?: DefaultOptionType[] // select用
@@ -24,7 +26,7 @@ type CustomRequired<T, K extends keyof T> = {
 	[P in K]-?: T[P]
 } & Omit<T, K>
 
-const Prompt = ModalToApi<PromptOptions, unknown | undefined>(
+const Prompt = ModalToApi<PromptOptions, IResult | undefined>(
 	({ options, handle }) => {
 		const state = useReactive<
 			CustomRequired<PromptOptions, "title" | "type" | "value" | "placeholder">
@@ -54,7 +56,7 @@ const Prompt = ModalToApi<PromptOptions, unknown | undefined>(
 			}
 		}, [options])
 
-		handle.onOk(() => {
+		handle.onOk((): IResult | undefined => {
 			if (inputPattern) {
 				const result = inputPattern.test(state.value as string)
 				setStatus(result ? "" : "error")
@@ -64,7 +66,7 @@ const Prompt = ModalToApi<PromptOptions, unknown | undefined>(
 			return state.value
 		})
 
-		function changeVal(val: unknown) {
+		function changeVal(val: IResult) {
 			state.value = val
 		}
 
@@ -112,7 +114,6 @@ const Prompt = ModalToApi<PromptOptions, unknown | undefined>(
 							status={status}
 							value={state.value as string}
 							onChange={e => changeVal(e.target.value)}
-							onPressEnter={e => changeVal(e)}
 							placeholder={state.placeholder}
 						/>
 					)

@@ -160,7 +160,7 @@ const ModalToApi = <IO, IR>(
 
 	const Comp = forwardRef(createModal(children, control))
 
-	return (options?: IO): Promise<IR | null> => {
+	return <T extends IR>(options?: IO): Promise<T | null> => {
 		unmontTask.pause()
 
 		return new Promise(resolve => {
@@ -168,7 +168,7 @@ const ModalToApi = <IO, IR>(
 				if (holder) {
 					holder.open({
 						...options,
-						_onOk: (value: IR) => {
+						_onOk: (value: T) => {
 							unmontTask.start()
 							resolve(value)
 						},
