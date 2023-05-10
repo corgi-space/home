@@ -16,13 +16,6 @@ import SettingDrawer, {
 
 const items: MenuProps["items"] = [
 	{
-		key: "user",
-		label: "个人信息"
-	},
-	{
-		type: "divider"
-	},
-	{
 		key: "logged",
 		danger: true,
 		label: "退出登录"
@@ -39,9 +32,6 @@ function Tools() {
 
 	const onClick: MenuProps["onClick"] = ({ key }) => {
 		switch (key) {
-			case "user":
-				openSettingDrawer(key)
-				break
 			case "logged":
 				clear()
 				break

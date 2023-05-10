@@ -2,13 +2,11 @@ import createDrawer, { DrawerRef } from "@/components/CreateDrawer/index"
 import {
 	CloseOutlined,
 	InfoCircleOutlined,
-	SettingOutlined,
-	UserOutlined
+	SettingOutlined
 } from "@ant-design/icons"
 import { Space } from "antd"
 import { FC, ReactNode, useState, useEffect, useMemo } from "react"
-
-export type IDrawerOptions = "user" | "setting" | "info"
+export type IDrawerOptions = "setting" | "info"
 
 type ITagItem = {
 	key: IDrawerOptions
@@ -21,12 +19,6 @@ type ITagItem = {
  * 左侧按钮
  */
 const tags: ITagItem[] = [
-	{
-		key: "user",
-		icon: <UserOutlined />,
-		title: "个人信息",
-		content: "这是信息"
-	},
 	{
 		key: "setting",
 		icon: <SettingOutlined />,
@@ -76,7 +68,7 @@ const TagItem: FC<{
 export type ISettingDrawerRef = DrawerRef<IDrawerOptions>
 const SettingDrawer = createDrawer<{}, IDrawerOptions>(
 	({ options, handle }) => {
-		const [active, setActive] = useState<IDrawerOptions>("user")
+		const [active, setActive] = useState<IDrawerOptions>("setting")
 
 		useEffect(() => {
 			options && setActive(options)

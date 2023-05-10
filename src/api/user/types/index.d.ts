@@ -1,11 +1,11 @@
 export interface IUserInfo {
-	account: string
+	userId: number
+	userName: string
 	phone: number
 	photo: string
 	roleId: number
+	roleName: string
 	token: string
-	userId: number
-	userName: string
 }
 
 export interface ILoginParams {
