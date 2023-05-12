@@ -47,3 +47,34 @@ export function setStorage({
 export function removeStorege(key: string, fn: Storage = localStorage) {
 	fn.removeItem(key)
 }
+
+type IFn<T> = () => T | Promise<T>
+
+export const cacheRequest = async <T>(
+	fn: IFn<T>,
+	{
+		key,
+		expirationTime,
+		storage
+	}: {
+		key: string
+		expirationTime?: number
+		storage?: Storage
+	}
+) => {
+	let res = getStorage<T>(key, storage)
+	if (res) {
+		return res
+	} else {
+		res = await fn()
+
+		setStorage({
+			key,
+			expirationTime,
+			data: res,
+			fn: storage
+		})
+
+		return res
+	}
+}

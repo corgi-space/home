@@ -8,7 +8,7 @@ import {
 	PayCircleOutlined
 } from "@ant-design/icons"
 import Tools from "./components/Tools"
-import Wallpaper from "./components/Bg"
+import Wallpaper from "./components/Wallpaper"
 
 const { Header } = AntdLayout
 

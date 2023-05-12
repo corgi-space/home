@@ -25,7 +25,7 @@ const items: MenuProps["items"] = [
 export const aClassName =
 	"block h-full cursor-pointer px-2 text-black text-[18px]"
 
-function Tools() {
+function Tools(props: { className?: string }) {
 	const { userInfo, clear } = useUserStore()
 
 	const SettingDrawerRef = useRef<ISettingDrawerRef>(null)
@@ -43,7 +43,7 @@ function Tools() {
 	}
 
 	return (
-		<Space size="middle" align="center">
+		<Space size="middle" align="center" className={props.className}>
 			<a
 				href="https://github.com/xluoyu/corgi-space"
 				target="__blank"
