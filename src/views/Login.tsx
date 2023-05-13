@@ -1,17 +1,17 @@
-import { Button, Form, Input, message } from "antd"
+import { Button, Checkbox, Form, Input, message } from "antd"
+
 import { LockOutlined, UserOutlined } from "@ant-design/icons"
 import useUserStore from "@/store/userStore"
 import type { FC } from "react"
-import type { ILoginParams } from "@/api/user/types"
-import { UserLogin } from "@/api/user"
+import type { ILoginParams } from "@/api/system/types"
+import { UserLogin } from "@/api/system"
 
 const LoginForm: FC = () => {
 	const { updateUserInfo } = useUserStore()
 
 	const onFinish = async (values: ILoginParams) => {
 		const res = await UserLogin(values)
-
-		updateUserInfo(res.data.userInfo)
+		updateUserInfo(res.data)
 
 		message.success("登录成功")
 	}
@@ -20,12 +20,12 @@ const LoginForm: FC = () => {
 		<Form
 			name="normal_login"
 			size="large"
-			initialValues={{ account: "lz", password: "12345678" }}
+			initialValues={{ email: "llzz0895@163.com", password: "12345678" }}
 			onFinish={onFinish}
 			autoComplete="off"
 		>
 			<Form.Item
-				name="account"
+				name="email"
 				rules={[{ required: true, message: "请输入用户名!" }]}
 			>
 				<Input prefix={<UserOutlined />} placeholder="用户名" />
@@ -35,6 +35,13 @@ const LoginForm: FC = () => {
 				rules={[{ required: true, message: "请输入密码!" }]}
 			>
 				<Input prefix={<LockOutlined />} type="password" placeholder="密码" />
+			</Form.Item>
+			<Form.Item
+				name="withRegister"
+				valuePropName="checked"
+				wrapperCol={{ span: 24 }}
+			>
+				<Checkbox>自动注册</Checkbox>
 			</Form.Item>
 			<Form.Item>
 				<Button type="primary" htmlType="submit" className="w-full">

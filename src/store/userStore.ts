@@ -1,6 +1,6 @@
 import { create } from "zustand"
 import { getStorage, removeStorege, setStorage } from "@/utils/storage"
-import { IUserInfo } from "@/api/user/types"
+import { IUserInfo } from "@/api/system/types"
 
 type Store = {
 	userInfo: IUserInfo | null
