@@ -14,7 +14,7 @@
   // border: 1px solid red;
   height: 70px;
   width: calc(100vw + $itemWidth);
-  transform: translate($itemWidth / -2, -6px);
+  transform: translate(calc($itemWidth / -2), -6px);
   // background: rgba(255,255,255,var(--glass-opacity));
   position: relative;
   overflow: hidden;

@@ -5,6 +5,7 @@ import useWeather from "@/hooks/weather"
 import useAppStore from "@/store/appStore"
 import { EditOutlined } from "@ant-design/icons"
 import Prompt from "@/components/Modal/Prompt"
+import { GetUserInfo } from "@/api/system"
 
 const WeatherComp = () => {
 	const { position } = useAppStore()
@@ -27,14 +28,13 @@ const WeatherComp = () => {
 
 function UserCard(props: CardProps) {
 	const { userInfo, updateUserInfo } = useUserStore()
-
 	const changePhoto: UploadProps["onChange"] = data => {
 		console.log(data)
 	}
 
 	const changeUserName = async () => {
 		const newName = await Prompt<string>({
-			value: userInfo?.userName
+			value: userInfo?.name
 		})
 
 		if (!newName) return
@@ -42,8 +42,12 @@ function UserCard(props: CardProps) {
 		console.log(newName)
 
 		updateUserInfo({
-			userName: newName
+			name: newName
 		})
+	}
+
+	const testaa = () => {
+		GetUserInfo()
 	}
 
 	return (
@@ -66,10 +70,12 @@ function UserCard(props: CardProps) {
 					</ImgCrop>
 					<div className="ml-3 flex flex-col justify-around">
 						<h3 className="my-0 cursor-pointer" onClick={changeUserName}>
-							{userInfo?.userName}
+							{userInfo?.name}
 							<EditOutlined className="ml-2 text-theme-color" />
 						</h3>
-						<Tag color="success">{userInfo?.roleName}</Tag>
+						<Tag color="success" onClick={testaa}>
+							{userInfo?.roleName || "暂无"}
+						</Tag>
 					</div>
 				</div>
 				<WeatherComp />
