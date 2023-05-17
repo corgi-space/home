@@ -23,8 +23,6 @@ service.interceptors.request.use(
 
 			if (token) {
 				config.headers.token = token
-			} else {
-				config.headers.token = "sdfisdhfishdf"
 			}
 		}
 

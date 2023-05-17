@@ -28,6 +28,9 @@ export function setStorage({
 }: {
 	key: string
 	data: unknown
+	/**
+	 * 存储时间，毫秒
+	 */
 	expirationTime?: number
 	fn?: Storage
 }) {
@@ -58,11 +61,15 @@ export const cacheRequest = async <T>(
 		storage
 	}: {
 		key: string
+		/**
+		 * 存储时间，毫秒
+		 */
 		expirationTime?: number
 		storage?: Storage
 	}
 ) => {
 	let res = getStorage<T>(key, storage)
+	console.log(res)
 	if (res) {
 		return res
 	} else {
