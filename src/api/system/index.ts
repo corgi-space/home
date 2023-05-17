@@ -1,4 +1,4 @@
-import type { ILoginParams, IUserInfo } from "./types/index"
+import type { ILoginParams, IMessageItem, IUserInfo } from "./types/index"
 import { Get, Post } from "@/utils/request"
 
 export const UserLogin = (params: ILoginParams) => {
@@ -13,3 +13,13 @@ export const GetUserInfo = () => {
 		url: "/system/getInfo"
 	})
 }
+
+export const GetMessageList = () =>
+	Get<IMessageItem[]>({
+		url: "/system/messageList"
+	})
+
+export const GetUnreadMessage = () =>
+	Get<IMessageItem[]>({
+		url: "/system/messageList"
+	})

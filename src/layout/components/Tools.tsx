@@ -7,7 +7,7 @@ import {
 } from "@ant-design/icons"
 import type { MenuProps } from "antd"
 import useUserStore from "@/store/userStore"
-import MessageBox from "./MessageBox"
+import MessageBox from "./Message"
 import { useRef } from "react"
 import SettingDrawer, {
 	IDrawerOptions,
@@ -80,7 +80,7 @@ function Tools(props: { className?: string }) {
 					<Space align="center">
 						<Avatar src={userInfo?.photo} size="large" />
 
-						{userInfo?.userName}
+						{userInfo?.name}
 						<DownOutlined />
 					</Space>
 				</a>

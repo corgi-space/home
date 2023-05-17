@@ -11,9 +11,8 @@ const LoginForm: FC = () => {
 
 	const onFinish = async (values: ILoginParams) => {
 		const res = await UserLogin(values)
-		updateUserInfo(res.data)
-
 		message.success("登录成功")
+		updateUserInfo(res.data)
 	}
 
 	return (

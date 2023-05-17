@@ -1,27 +1,33 @@
 import { BellOutlined } from "@ant-design/icons"
 import { Popover, Tabs, TabsProps } from "antd"
-import { aClassName } from "./Tools"
+import { aClassName } from "../Tools"
+import MessageList from "./MessageList"
+import NoticeList from "./NoticeList"
 
 const MessageBoxContent = () => {
 	const items: TabsProps["items"] = [
 		{
 			key: "1",
-			label: "通知",
-			children: "这是通知"
+			label: "消息",
+			children: <MessageList />
 		},
 		{
 			key: "2",
-			label: "消息",
-			children: "这是消息"
+			label: "通知",
+			children: <NoticeList />
 		}
 	]
 
-	return <Tabs defaultActiveKey="1" items={items} />
+	return <Tabs defaultActiveKey="1" items={items} className="w-[400px]" />
 }
 
 function MessageBox() {
 	return (
-		<Popover placement="bottom" content={MessageBoxContent} trigger="click">
+		<Popover
+			placement="bottomRight"
+			content={MessageBoxContent}
+			trigger="click"
+		>
 			<a className={aClassName} title="消息">
 				<BellOutlined />
 			</a>
