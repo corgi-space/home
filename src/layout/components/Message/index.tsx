@@ -1,8 +1,9 @@
-import { BellOutlined } from "@ant-design/icons"
-import { Popover, Tabs, TabsProps } from "antd"
+import { BellOutlined, PlusOutlined } from "@ant-design/icons"
+import { Button, Popover, Tabs, TabsProps } from "antd"
 import { aClassName } from "../Tools"
 import MessageList from "./MessageList"
 import NoticeList from "./NoticeList"
+import Auth from "@/components/Auth"
 
 const MessageBoxContent = () => {
 	const items: TabsProps["items"] = [
@@ -18,7 +19,18 @@ const MessageBoxContent = () => {
 		}
 	]
 
-	return <Tabs defaultActiveKey="1" items={items} className="w-[400px]" />
+	return (
+		<Tabs
+			defaultActiveKey="1"
+			items={items}
+			className="w-[400px]"
+			tabBarExtraContent={
+				<Auth roles={[1, 2]}>
+					<Button shape="circle" icon={<PlusOutlined />} title="添加通知" />
+				</Auth>
+			}
+		/>
+	)
 }
 
 function MessageBox() {

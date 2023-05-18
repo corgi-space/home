@@ -1,4 +1,5 @@
 import { List, Avatar } from "antd"
+import NoticeDetails from "./NoticeDetails"
 
 const data = [
 	{
@@ -17,22 +18,26 @@ const data = [
 
 function NoticeList() {
 	return (
-		<List
-			itemLayout="horizontal"
-			dataSource={data}
-			renderItem={(item, index) => (
-				<List.Item>
-					<List.Item.Meta
-						avatar={
-							<Avatar
-								src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`}
-							/>
-						}
-						title={<a href="https://ant.design">{item.title}</a>}
-					/>
-				</List.Item>
-			)}
-		/>
+		<>
+			<List
+				itemLayout="horizontal"
+				dataSource={data}
+				renderItem={(item, index) => (
+					<List.Item>
+						<List.Item.Meta
+							avatar={
+								<Avatar
+									src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`}
+								/>
+							}
+							title={<a href="https://ant.design">{item.title}</a>}
+						/>
+					</List.Item>
+				)}
+			/>
+
+			<NoticeDetails />
+		</>
 	)
 }
 
