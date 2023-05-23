@@ -10,6 +10,12 @@ export interface IUserInfo {
 	token: string
 }
 
+export interface IUpdateUserInfo {
+	name?: string
+	email?: number
+	photo?: string
+}
+
 export interface ILoginParams {
 	email: string
 	password: string

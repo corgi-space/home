@@ -1,5 +1,10 @@
-import type { ILoginParams, IMessageItem, IUserInfo } from "./types/index"
-import { Get, Post } from "@/utils/request"
+import type {
+	ILoginParams,
+	IMessageItem,
+	IUpdateUserInfo,
+	IUserInfo
+} from "./types/index"
+import { Get, Post, Put } from "@/utils/request"
 
 export const UserLogin = (params: ILoginParams) => {
 	return Post<IUserInfo>({
@@ -11,6 +16,13 @@ export const UserLogin = (params: ILoginParams) => {
 export const GetUserInfo = () => {
 	return Get({
 		url: "/system/getInfo"
+	})
+}
+
+export const UpdateUserInfo = (data: IUpdateUserInfo) => {
+	return Put({
+		url: "/system/updateMemberInfo",
+		data
 	})
 }
 

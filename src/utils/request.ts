@@ -58,7 +58,6 @@ service.interceptors.response.use(
 	response => {
 		const res = response.data
 		if (res.code && res.code !== "200") {
-			console.log(res)
 			message.error({
 				content: res.msg
 			})
@@ -101,6 +100,9 @@ export function Get<T = unknown>(options: requestOptions): Promise<Result<T>> {
 }
 export function Post<T = unknown>(options: requestOptions): Promise<Result<T>> {
 	return service({ ...options, method: "post" })
+}
+export function Put<T = unknown>(options: requestOptions): Promise<Result<T>> {
+	return service({ ...options, method: "put" })
 }
 
 export default service

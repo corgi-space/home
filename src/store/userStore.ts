@@ -16,16 +16,12 @@ const useUserStore = create<Store>((set, get) => ({
 		const _userInfo = get().userInfo
 		const newUserInfo = Object.assign(_userInfo || {}, val) as IUserInfo
 
-		/**
-		 *  调用更新用户的接口
-		 */
-
 		set({
 			userInfo: newUserInfo
 		})
 		setStorage({
 			key: "userInfo",
-			data: val
+			data: newUserInfo
 		})
 	},
 

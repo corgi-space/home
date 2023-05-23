@@ -1,11 +1,11 @@
-import { Avatar, Card, CardProps, Tag, Upload, UploadProps } from "antd"
-import ImgCrop from "antd-img-crop"
+import { Avatar, Card, CardProps, Tag } from "antd"
+// import ImgCrop from "antd-img-crop"
 import useUserStore from "@/store/userStore"
 import useWeather from "@/hooks/weather"
 import useAppStore from "@/store/appStore"
 import { EditOutlined } from "@ant-design/icons"
 import Prompt from "@/components/Modal/Prompt"
-import { GetUserInfo } from "@/api/system"
+import { GetUserInfo, UpdateUserInfo } from "@/api/system"
 
 const WeatherComp = () => {
 	const { position } = useAppStore()
@@ -28,22 +28,44 @@ const WeatherComp = () => {
 
 function UserCard(props: CardProps) {
 	const { userInfo, updateUserInfo } = useUserStore()
-	const changePhoto: UploadProps["onChange"] = data => {
-		console.log(data)
+	// const changePhoto: UploadProps["onChange"] = data => {
+	// 	console.log(data)
+	// }
+
+	/**
+	 * 暂时使用
+	 *
+	 * 用户输入链接替换头像
+	 */
+	const changeUserPhoto = async () => {
+		const photo = await Prompt<string>({
+			title: "修改头像",
+			content: "请输入头像链接"
+		})
+
+		if (!photo) return
+
+		await UpdateUserInfo({
+			photo
+		})
+
+		updateUserInfo({ photo })
 	}
 
 	const changeUserName = async () => {
-		const newName = await Prompt<string>({
-			value: userInfo?.name
+		const name = await Prompt<string>({
+			value: userInfo?.name,
+			title: "修改昵称",
+			content: "请输入昵称"
 		})
 
-		if (!newName) return
+		if (!name) return
 
-		console.log(newName)
-
-		updateUserInfo({
-			name: newName
+		await UpdateUserInfo({
+			name
 		})
+
+		updateUserInfo({ name })
 	}
 
 	const testaa = () => {
@@ -54,7 +76,7 @@ function UserCard(props: CardProps) {
 		<Card {...props} bodyStyle={{ height: "100%" }}>
 			<div className="flex h-full items-center">
 				<div className="flex flex-1">
-					<ImgCrop cropShape="round">
+					{/* <ImgCrop cropShape="round">
 						<Upload
 							action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
 							onChange={changePhoto}
@@ -67,13 +89,22 @@ function UserCard(props: CardProps) {
 								</div>
 							</div>
 						</Upload>
-					</ImgCrop>
+					</ImgCrop> */}
+					<div
+						className="relative cursor-pointer overflow-hidden rounded-full"
+						onClick={changeUserPhoto}
+					>
+						<Avatar src={userInfo?.photo} size={64} />
+						<div className="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-gray-600 bg-opacity-60 text-white opacity-0 transition-opacity hover:opacity-100">
+							替换
+						</div>
+					</div>
 					<div className="ml-3 flex flex-col justify-around">
 						<h3 className="my-0 cursor-pointer" onClick={changeUserName}>
 							{userInfo?.name}
 							<EditOutlined className="ml-2 text-theme-color" />
 						</h3>
-						<Tag color="success" onClick={testaa}>
+						<Tag color="success" onClick={testaa} className="w-fit">
 							{userInfo?.roleName || "暂无"}
 						</Tag>
 					</div>
