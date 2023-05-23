@@ -1,4 +1,5 @@
 import type {
+	ICreateNotice,
 	ILoginParams,
 	IMessageItem,
 	IUpdateUserInfo,
@@ -29,6 +30,12 @@ export const UpdateUserInfo = (data: IUpdateUserInfo) => {
 export const GetMessageList = () =>
 	Get<IMessageItem[]>({
 		url: "/system/messageList"
+	})
+
+export const CreateMessage = (data: ICreateNotice) =>
+	Post<null>({
+		url: "/system/createNotice",
+		data
 	})
 
 export const GetUnreadMessage = () =>

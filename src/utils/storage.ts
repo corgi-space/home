@@ -69,7 +69,6 @@ export const cacheRequest = async <T>(
 	}
 ) => {
 	let res = getStorage<T>(key, storage)
-	console.log(res)
 	if (res) {
 		return res
 	} else {

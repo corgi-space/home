@@ -1,5 +1,5 @@
 import type { FC } from "react"
-import { Layout as AntdLayout, Menu, theme } from "antd"
+import { Layout as AntdLayout, Menu } from "antd"
 import { Outlet } from "react-router-dom"
 import {
 	CloudServerOutlined,
@@ -20,10 +20,9 @@ const HeaderItems = [
 ]
 
 export const Layout: FC = () => {
-	const {
-		token: { colorBgContainer }
-	} = theme.useToken()
-	console.log(colorBgContainer)
+	// const {
+	// 	token: { colorBgContainer }
+	// } = theme.useToken()
 	return (
 		<AntdLayout className="bg-transparent">
 			<Wallpaper />

@@ -41,7 +41,6 @@ const MyDrawer = createDrawer<IMyDrawerProps, IMyDrawerOptions>(
 		const name = useWatch("name", form)
 
 		const onFinish = values => {
-			console.log(props, values)
 			props.update()
 			// 手动关闭抽屉
 			handle.close()

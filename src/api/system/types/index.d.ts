@@ -21,6 +21,12 @@ export interface ILoginParams {
 	password: string
 }
 
+export interface ICreateNotice {
+	title: string
+	content: string
+	target: number[]
+}
+
 export interface IMessageItem {
 	id: number
 	senderId: number
