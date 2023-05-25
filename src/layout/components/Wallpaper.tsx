@@ -17,7 +17,7 @@ const Wallpaper = () => {
 
 	return (
 		<div className="fixed z-[-1] h-[100vh] w-[100vw]">
-			<div className="absolute h-full w-full bg-black bg-opacity-[var(--wallpaper-opacity)] backdrop-blur-[var(--wallpaper-blur)]"></div>
+			<div className="absolute h-full w-full backdrop-blur-[var(--wallpaper-blur)]"></div>
 			<img
 				className="h-full w-full object-cover"
 				src={photoSrc || defaultPhoto}

@@ -79,7 +79,7 @@ const NoticeDetails = createDrawer<{}, IDrawerOptions>(
 				<Form.Item
 					label="目标群体"
 					name="target"
-					rules={[{ required: true, message: "请输入标题!" }]}
+					rules={[{ required: true, message: "请选择目标群体!" }]}
 				>
 					<Checkbox.Group options={plainOptions} />
 				</Form.Item>
