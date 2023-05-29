@@ -2,6 +2,7 @@ import type {
 	ICreateNotice,
 	ILoginParams,
 	IMessageItem,
+	INoticeItem,
 	IUpdateUserInfo,
 	IUserInfo
 } from "./types/index"
@@ -27,15 +28,21 @@ export const UpdateUserInfo = (data: IUpdateUserInfo) => {
 	})
 }
 
-export const GetMessageList = () =>
-	Get<IMessageItem[]>({
-		url: "/system/messageList"
+export const GetNoticeList = (params: IPage) =>
+	Get<ITable<INoticeItem>>({
+		url: "/system/getNoticeList",
+		params
 	})
 
-export const CreateMessage = (data: ICreateNotice) =>
+export const CreateNotice = (data: ICreateNotice) =>
 	Post<null>({
 		url: "/system/createNotice",
 		data
+	})
+
+export const GetNoticeDetails = (id: number) =>
+	Get({
+		url: `/system/getNotice/${id}`
 	})
 
 export const GetUnreadMessage = () =>

@@ -56,3 +56,13 @@ export interface ITaskItem {
 	assignUserId: number
 	assignUserName: string
 }
+
+export interface INoticeItem {
+	id: number
+	title: string
+	read: boolean
+	createTime: string
+	createUser: {
+		name: string
+	}
+}

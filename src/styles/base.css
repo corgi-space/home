@@ -19,8 +19,33 @@ p{
   margin: 5px 0;
 }
 
+
+::-webkit-scrollbar
+{
+	width: 3px;
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track
+{
+	border-radius: 10px;
+	background-color: transparent;
+}
+
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color:#d5d8de;
+}
+// 滚动条右下角方块
+::-webkit-scrollbar-corner{
+  background-color: transparent;
+}
+
 .glass{
   background: rgba(255,255,255,var(--glass-opacity));
-  backdrop-filter: blur(var(--glass-blur));
+  /* backdrop-filter: blur(var(--glass-blur)); */
   transform: translateZ(0);
 }
+

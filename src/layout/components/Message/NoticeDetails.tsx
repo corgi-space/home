@@ -1,7 +1,6 @@
-import { CreateMessage } from "@/api/system"
+import { CreateNotice, GetNoticeDetails } from "@/api/system"
 import { ICreateNotice } from "@/api/system/types"
 import createDrawer, { DrawerRef } from "@/components/CreateDrawer/index"
-import { useMutationObserver } from "ahooks"
 import { Button, Checkbox, Divider, Form, Input, message } from "antd"
 import { useEffect } from "react"
 
@@ -33,23 +32,21 @@ const NoticeDetails = createDrawer<{}, IDrawerOptions>(
 						handle.setTitle("查看通知")
 						break
 				}
+
+				if (options.id) {
+					GetNoticeDetails(options.id).then(res => {
+						console.log(res)
+					})
+				}
 			}
 		}, [options])
 
 		const onFinish = async (values: ICreateNotice) => {
-			await CreateMessage(values)
+			await CreateNotice(values)
 
 			message.success("提交成功")
 			handle.close()
 		}
-
-		useMutationObserver(
-			mutationsList => {
-				console.log(mutationsList)
-			},
-			document.getElementById("#textareaFormItem"),
-			{ attributes: true }
-		)
 
 		return (
 			<Form
@@ -92,7 +89,8 @@ const NoticeDetails = createDrawer<{}, IDrawerOptions>(
 		)
 	},
 	{
-		width: "600px"
+		width: "600px",
+		zIndex: 1030
 	}
 )
 

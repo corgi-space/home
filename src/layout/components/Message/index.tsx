@@ -1,5 +1,5 @@
-import { BellOutlined, PlusOutlined } from "@ant-design/icons"
-import { Button, Popover, Tabs, TabsProps } from "antd"
+import { BellOutlined } from "@ant-design/icons"
+import { Popover, Tabs, TabsProps } from "antd"
 import { aClassName } from "../Tools"
 import NoticeDetails, {
 	IDrawerOptions,
@@ -7,26 +7,13 @@ import NoticeDetails, {
 } from "./NoticeDetails"
 import MessageList from "./MessageList"
 import NoticeList from "./NoticeList"
-import Auth from "@/components/Auth"
-import { useRef, useState } from "react"
+import { createContext, useRef } from "react"
+
+export const MessageContext = createContext<{
+	openDrawer: (type: IDrawerOptions["type"], id?: number) => void
+} | null>(null)
 
 function MessageBox() {
-	const noticeRef = useRef<ISettingDrawerRef>(null)
-
-	const [clicked, setClicked] = useState(false)
-
-	const handleClickChange = (open: boolean) => {
-		setClicked(open)
-	}
-
-	const openDrawer = (type: IDrawerOptions["type"], id?: number) => {
-		setClicked(false)
-		noticeRef.current?.open({
-			type,
-			id
-		})
-	}
-
 	const MessageBoxContent = () => {
 		const items: TabsProps["items"] = [
 			{
@@ -46,28 +33,31 @@ function MessageBox() {
 				defaultActiveKey="1"
 				items={items}
 				className="w-[400px]"
-				tabBarExtraContent={
-					<Auth roles={[1, 2]}>
-						<Button
-							shape="circle"
-							icon={<PlusOutlined />}
-							title="添加通知"
-							onClick={() => openDrawer("create")}
-						/>
-					</Auth>
-				}
+				destroyInactiveTabPane
 			/>
 		)
 	}
 
+	const noticeRef = useRef<ISettingDrawerRef>(null)
+
+	const openDrawer = (type: IDrawerOptions["type"], id?: number) => {
+		noticeRef.current?.open({
+			type,
+			id
+		})
+	}
+
 	return (
-		<>
+		<MessageContext.Provider
+			value={{
+				openDrawer
+			}}
+		>
 			<Popover
 				placement="bottomRight"
 				content={MessageBoxContent}
 				trigger="click"
-				open={clicked}
-				onOpenChange={handleClickChange}
+				destroyTooltipOnHide
 			>
 				<a className={aClassName} title="消息">
 					<BellOutlined />
@@ -75,7 +65,7 @@ function MessageBox() {
 			</Popover>
 
 			<NoticeDetails ref={noticeRef} />
-		</>
+		</MessageContext.Provider>
 	)
 }
 
