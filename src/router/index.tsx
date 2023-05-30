@@ -10,19 +10,29 @@ import authRouter from "./authRouter"
 // export { getRouterArray } from "./routerArray"
 
 export const RootRouter = [
+	// {
+	// 	path: "/",
+	// 	name: "dashboard",
+	// 	element: <Navigate to="/home" />
+	// },
 	{
 		path: "/",
-		name: "dashboard",
-		element: <Navigate to="/home" />
-	},
-	{
-		path: "/home",
 		name: "home",
 		element: <Layout />,
 		children: [
 			{
 				path: "",
 				element: <Home />
+			},
+			{
+				path: "/mall",
+				element: (
+					<micro-app
+						name="mall"
+						url="http://localhost:5174/"
+						baseroute="/mall"
+					></micro-app>
+				)
 			}
 		]
 	},

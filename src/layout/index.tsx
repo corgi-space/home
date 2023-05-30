@@ -1,6 +1,6 @@
 import type { FC } from "react"
 import { Layout as AntdLayout, Menu } from "antd"
-import { Outlet } from "react-router-dom"
+import { Outlet, useNavigate } from "react-router-dom"
 import {
 	CloudServerOutlined,
 	HomeOutlined,
@@ -15,14 +15,20 @@ const { Header } = AntdLayout
 const HeaderItems = [
 	{ icon: <HomeOutlined size={48} />, key: "home", label: "首页" },
 	{ icon: <CloudServerOutlined size={48} />, key: "devOps", label: "运维" },
-	{ icon: <MacCommandOutlined size={48} />, key: "operate", label: "运营" },
-	{ icon: <PayCircleOutlined size={48} />, key: "sale", label: "销售" }
+	{ icon: <MacCommandOutlined size={48} />, key: "mall", label: "商城" }
 ]
 
 export const Layout: FC = () => {
+	const navigate = useNavigate()
+
 	// const {
 	// 	token: { colorBgContainer }
 	// } = theme.useToken()
+
+	const clickItem = ({ key }) => {
+		navigate(key)
+	}
+
 	return (
 		<AntdLayout className="bg-transparent">
 			<Wallpaper />
@@ -34,6 +40,7 @@ export const Layout: FC = () => {
 					mode="horizontal"
 					defaultSelectedKeys={["home"]}
 					items={HeaderItems}
+					onClick={clickItem}
 					className="flex-1 bg-transparent px-5"
 				/>
 				<Tools />

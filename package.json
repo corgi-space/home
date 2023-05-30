@@ -19,6 +19,7 @@
 		"@dnd-kit/core": "latest",
 		"@dnd-kit/sortable": "7.0.2",
 		"@dnd-kit/utilities": "latest",
+		"@micro-zoe/micro-app": "^0.8.11",
 		"@tinymce/tinymce-react": "^4.3.0",
 		"ahooks": "^3.7.5",
 		"antd": "^5.4.5",
