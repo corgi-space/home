@@ -4,8 +4,7 @@ import { Outlet, useNavigate } from "react-router-dom"
 import {
 	CloudServerOutlined,
 	HomeOutlined,
-	MacCommandOutlined,
-	PayCircleOutlined
+	MacCommandOutlined
 } from "@ant-design/icons"
 import Tools from "./components/Tools"
 import Wallpaper from "./components/Wallpaper"
@@ -13,7 +12,7 @@ import Wallpaper from "./components/Wallpaper"
 const { Header } = AntdLayout
 
 const HeaderItems = [
-	{ icon: <HomeOutlined size={48} />, key: "home", label: "首页" },
+	{ icon: <HomeOutlined size={48} />, key: "/", label: "首页" },
 	{ icon: <CloudServerOutlined size={48} />, key: "devOps", label: "运维" },
 	{ icon: <MacCommandOutlined size={48} />, key: "mall", label: "商城" }
 ]

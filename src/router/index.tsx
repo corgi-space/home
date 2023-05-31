@@ -7,6 +7,7 @@ import Test from "@/views/Test"
 import { Layout } from "@/layout"
 import Home from "@/views/Home"
 import authRouter from "./authRouter"
+import DevOps from "@/views/DevOps"
 // export { getRouterArray } from "./routerArray"
 
 export const RootRouter = [
@@ -25,13 +26,21 @@ export const RootRouter = [
 				element: <Home />
 			},
 			{
-				path: "/mall",
+				path: "/devops",
+				element: <DevOps />
+			},
+			{
+				path: "/mall/*",
 				element: (
-					<micro-app
-						name="mall"
-						url="http://localhost:5174/"
-						baseroute="/mall"
-					></micro-app>
+					<div>
+						<micro-app
+							name="mall"
+							url="http://localhost:5173/"
+							baseroute="/mall"
+							inline // 使用内联script模式
+							disableSandbox // 关闭沙箱
+						></micro-app>
+					</div>
 				)
 			}
 		]
