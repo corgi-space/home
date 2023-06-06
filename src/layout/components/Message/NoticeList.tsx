@@ -44,7 +44,7 @@ function NoticeList() {
 	}, [page])
 
 	return (
-		<>
+		<div className="w-[300px]">
 			<Auth roles={[1, 2]}>
 				<Button
 					size="small"
@@ -58,7 +58,7 @@ function NoticeList() {
 				</Button>
 			</Auth>
 
-			<div className="h-[400px] overflow-y-auto">
+			<div className="max-h-[400px] overflow-y-auto">
 				<InfiniteScroll
 					dataLength={data.length}
 					next={() => setPage(page + 1)}
@@ -96,7 +96,7 @@ function NoticeList() {
 					/>
 				</InfiniteScroll>
 			</div>
-		</>
+		</div>
 	)
 }
 

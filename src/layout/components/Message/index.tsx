@@ -1,11 +1,10 @@
 import { BellOutlined } from "@ant-design/icons"
-import { Popover, Tabs, TabsProps } from "antd"
+import { Popover } from "antd"
 import { aClassName } from "../Tools"
 import NoticeDetails, {
 	IDrawerOptions,
 	ISettingDrawerRef
 } from "./NoticeDetails"
-import MessageList from "./MessageList"
 import NoticeList from "./NoticeList"
 import { createContext, useRef } from "react"
 
@@ -14,30 +13,6 @@ export const MessageContext = createContext<{
 } | null>(null)
 
 function MessageBox() {
-	const MessageBoxContent = () => {
-		const items: TabsProps["items"] = [
-			{
-				key: "1",
-				label: "消息",
-				children: <MessageList />
-			},
-			{
-				key: "2",
-				label: "通知",
-				children: <NoticeList />
-			}
-		]
-
-		return (
-			<Tabs
-				defaultActiveKey="1"
-				items={items}
-				className="w-[400px]"
-				destroyInactiveTabPane
-			/>
-		)
-	}
-
 	const noticeRef = useRef<ISettingDrawerRef>(null)
 
 	const openDrawer = (type: IDrawerOptions["type"], id?: number) => {
@@ -55,7 +30,7 @@ function MessageBox() {
 		>
 			<Popover
 				placement="bottomRight"
-				content={MessageBoxContent}
+				content={NoticeList}
 				trigger="click"
 				destroyTooltipOnHide
 			>

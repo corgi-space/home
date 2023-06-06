@@ -2,7 +2,6 @@ import { create } from "zustand"
 import { getStorage, setStorage } from "@/utils/storage"
 import type { IPosition, ITheme } from "@/types/index"
 import { ThemeColor } from "@/config"
-import { loadScript } from "@/utils"
 import axios from "axios"
 import { WeatherKey } from "@/config"
 
@@ -20,44 +19,55 @@ type Action = {
  * 根据IP获取当前地址
  * @param position
  */
-window.savePosition = async (position: IPosition) => {
-	const adm1 = position.region || position.city
-
-	const cityId = await axios
+const savePosition = async (position: string) => {
+	const res = await axios
 		.get(
-			`https://geoapi.qweather.com/v2/city/lookup?location=${adm1}&adm=${position.pro}&key=${WeatherKey}&lang=zh`
+			`https://geoapi.qweather.com/v2/city/lookup?location=${position}&key=${WeatherKey}&lang=zh`
 		)
-		.then(res => res.data.location[0].id as number)
-	position.cityId = cityId
+		.then(res => {
+			const location = res.data.location[0]
 
+			return {
+				name: location.name,
+				city: location.adm2,
+				cityId: location.id
+			}
+		})
 	setStorage({
 		key: "position",
-		data: position,
+		data: res,
 		fn: sessionStorage
 	})
-	useAppStore.setState(() => ({ position: position }))
+	useAppStore.setState(() => ({ position: res }))
 }
 
 const getPosition = () => {
-	let position = getStorage<IPosition>("position", sessionStorage)
-
-	if (!position) {
-		loadScript(`http://whois.pconline.com.cn/ipJson.jsp?callback=savePosition`)
-		return null
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(
+			position => {
+				console.log(position)
+				savePosition(position.coords.longitude + "," + position.coords.latitude)
+			},
+			error => {
+				console.log(error)
+			}
+		)
 	} else {
-		return position
+		console.log("no navigator.geolocation")
 	}
 }
 
 const useAppStore = create<State & Action>(set => ({
 	theme: getStorage<ITheme>("theme") || "light",
 	themeColor: getStorage<string>("themeColor") || ThemeColor,
-	position: getPosition(),
+	position: null,
 
 	change: (key, data) => {
 		setStorage({ key, data })
 		set(() => ({ [key]: data }))
 	}
 }))
+
+getPosition()
 
 export default useAppStore

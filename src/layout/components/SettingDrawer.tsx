@@ -1,12 +1,13 @@
 import createDrawer, { DrawerRef } from "@/components/CreateDrawer/index"
 import {
+	BellOutlined,
 	CloseOutlined,
 	InfoCircleOutlined,
 	SettingOutlined
 } from "@ant-design/icons"
 import { Space } from "antd"
 import { FC, ReactNode, useState, useEffect, useMemo } from "react"
-export type IDrawerOptions = "setting" | "info"
+export type IDrawerOptions = "notice" | "setting" | "info"
 
 type ITagItem = {
 	key: IDrawerOptions
@@ -19,6 +20,12 @@ type ITagItem = {
  * 左侧按钮
  */
 const tags: ITagItem[] = [
+	{
+		key: "notice",
+		icon: <BellOutlined />,
+		title: "公告",
+		content: "平台"
+	},
 	{
 		key: "setting",
 		icon: <SettingOutlined />,

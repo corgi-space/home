@@ -3,6 +3,7 @@ import useAppStore from "@/store/appStore"
 import { getStorage, setStorage } from "@/utils/storage"
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { IPosition } from "../types/index"
 
 type IWeather = {
 	fxLink: string // 跳转地址
@@ -28,7 +29,7 @@ type IWeather = {
  * 获取天气信息
  * @param cityId
  */
-const getWeather = async (cityId: number): Promise<IWeather> => {
+const getWeather = async (position: IPosition): Promise<IWeather> => {
 	let weather = getStorage<IWeather>("weather", sessionStorage)
 
 	if (weather) {
@@ -36,7 +37,7 @@ const getWeather = async (cityId: number): Promise<IWeather> => {
 	}
 	weather = await axios
 		.get(
-			`https://devapi.qweather.com/v7/weather/now?key=${WeatherKey}&location=${cityId}`
+			`https://devapi.qweather.com/v7/weather/now?key=${WeatherKey}&location=${position.cityId}`
 		)
 		.then(res => {
 			const data = res.data
@@ -98,7 +99,7 @@ const useWeather = () => {
 	const init = async () => {
 		if (!position) return
 
-		setWeather(await getWeather(position.cityId))
+		setWeather(await getWeather(position))
 
 		// setIndices(await getIndices(position.cityId))
 	}

@@ -22,7 +22,7 @@ service.interceptors.request.use(
 			const token = tokenComputed(useUserStore.getState())
 
 			if (token) {
-				config.headers.token = token
+				config.headers.Authorization = token
 			}
 		}
 

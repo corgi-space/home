@@ -1,9 +1,7 @@
 export type ITheme = "light" | "dark"
 
 export type IPosition = {
-	pro: string
+	name: string
 	city: string
-	region: string
-	ip: string
-	cityId: number
+	cityId: string
 }

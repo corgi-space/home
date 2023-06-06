@@ -13,6 +13,7 @@ html, body, #root{
   --glass-blur: 0;
   --wallpaper-blur: 1px;
   --wallpaper-opacity: 0;
+  --wharf-height: 60px;
 }
 
 p{
