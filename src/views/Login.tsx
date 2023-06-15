@@ -1,5 +1,4 @@
-import { Button, Checkbox, Form, Input, message } from "antd"
-
+import { Button, Checkbox, Form, Input } from "antd"
 import { LockOutlined, UserOutlined } from "@ant-design/icons"
 import useUserStore from "@/store/userStore"
 import type { FC } from "react"
@@ -11,7 +10,6 @@ const LoginForm: FC = () => {
 
 	const onFinish = async (values: ILoginParams) => {
 		const res = await UserLogin(values)
-		message.success("登录成功")
 		updateUserInfo(res.data)
 	}
 

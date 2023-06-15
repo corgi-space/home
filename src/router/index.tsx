@@ -7,22 +7,41 @@ import Test from "@/views/Test"
 import { Layout } from "@/layout"
 import Home from "@/views/Home"
 import authRouter from "./authRouter"
+import DevOps from "@/views/DevOps"
 // export { getRouterArray } from "./routerArray"
 
 export const RootRouter = [
+	// {
+	// 	path: "/",
+	// 	name: "dashboard",
+	// 	element: <Navigate to="/home" />
+	// },
 	{
 		path: "/",
-		name: "dashboard",
-		element: <Navigate to="/home" />
-	},
-	{
-		path: "/home",
 		name: "home",
 		element: <Layout />,
 		children: [
 			{
 				path: "",
 				element: <Home />
+			},
+			{
+				path: "/devops",
+				element: <DevOps />
+			},
+			{
+				path: "/mall/*",
+				element: (
+					<div>
+						<micro-app
+							name="mall"
+							url="http://localhost:5173/"
+							baseroute="/mall"
+							inline // 使用内联script模式
+							disableSandbox // 关闭沙箱
+						></micro-app>
+					</div>
+				)
 			}
 		]
 	},
