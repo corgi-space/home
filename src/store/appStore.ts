@@ -45,7 +45,6 @@ const getPosition = () => {
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(
 			position => {
-				console.log(position)
 				savePosition(position.coords.longitude + "," + position.coords.latitude)
 			},
 			error => {
