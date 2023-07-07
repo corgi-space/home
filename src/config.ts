@@ -1,4 +1,4 @@
-export const AppName = "Corgi-Space"
+export const AppName = "柯基空间"
 
 export const ThemeColor = "#1677ff"
 

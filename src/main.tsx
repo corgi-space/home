@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom"
 import microApp from "@micro-zoe/micro-app"
 import App from "./App"
 import "./styles/tailwind.css"
-import "./styles/base.css"
+import "./styles/base.scss"
 
 microApp.start({
 	plugins: {
