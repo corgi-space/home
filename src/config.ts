@@ -1,4 +1,4 @@
-export const AppName = "柯基空间"
+export const AppName = "可基小站"
 
 export const ThemeColor = "#1677ff"
 

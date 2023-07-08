@@ -1,19 +1,46 @@
 import { create } from "zustand"
 import { getStorage, setStorage } from "@/utils/storage"
 import type { IPosition, ITheme } from "@/types/index"
-import { ThemeColor } from "@/config"
 import axios from "axios"
 import { WeatherKey } from "@/config"
 
 type State = {
 	theme: ITheme
-	themeColor: string
 	position: IPosition | null
 }
 
 type Action = {
 	change: <T extends keyof State>(key: T, val: State[T]) => void
+	changeTheme: (val?: State["theme"]) => void
 }
+
+const useAppStore = create<State & Action>((set, get) => ({
+	theme: getStorage<ITheme>("theme") || "light",
+	position: null,
+
+	change: (key, data) => {
+		setStorage({ key, data })
+		set(() => ({ [key]: data }))
+	},
+
+	changeTheme: val => {
+		let curTheme: State["theme"] =
+			val ?? get().theme === "light" ? "dark" : "light"
+
+		set(() => ({
+			theme: curTheme
+		}))
+
+		updateHtmlTheme(curTheme)
+		setStorage({ key: "theme", data: curTheme })
+	}
+}))
+
+const updateHtmlTheme = (val: string) => {
+	document.documentElement.className = val
+}
+
+updateHtmlTheme(useAppStore.getState().theme)
 
 /**
  * 根据IP获取当前地址
@@ -55,17 +82,6 @@ const getPosition = () => {
 		console.log("no navigator.geolocation")
 	}
 }
-
-const useAppStore = create<State & Action>(set => ({
-	theme: getStorage<ITheme>("theme") || "light",
-	themeColor: getStorage<string>("themeColor") || ThemeColor,
-	position: null,
-
-	change: (key, data) => {
-		setStorage({ key, data })
-		set(() => ({ [key]: data }))
-	}
-}))
 
 getPosition()
 

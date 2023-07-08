@@ -1,5 +1,5 @@
 export interface IUserInfo {
-	userId: number
+	memberId: number
 	name: string
 	email: number
 	photo: string
