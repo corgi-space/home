@@ -11,3 +11,7 @@ export const loadScript = (url: string, callback?: Function) => {
 
 	document.body.append(script)
 }
+
+export const addZero = (num: number) => {
+	return num < 10 ? "0" + num : "" + num
+}
