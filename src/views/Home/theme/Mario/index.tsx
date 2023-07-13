@@ -4,7 +4,7 @@ import { CreateTheme } from "./render"
 import { useTimeMatrix } from "../../hooks/useTimeArr"
 
 function index(props: { children: ReactNode }) {
-	const timeMatrix = useTimeMatrix()
+	const [timeMatrix, timeArr] = useTimeMatrix()
 	const [app, setApp] = useState<CreateTheme>()
 
 	useEffect(() => {
@@ -13,7 +13,7 @@ function index(props: { children: ReactNode }) {
 
 	useEffect(() => {
 		if (app && timeMatrix) {
-			app.renderTime(timeMatrix)
+			app.renderTime(timeMatrix, timeArr)
 		}
 	}, [timeMatrix])
 

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import TimeList from "./timeList"
 import { addZero } from "@/utils"
 
-export const useTimeMatrix = () => {
+export const useTimeMatrix = (): [number[][][], string[]] => {
 	const timeArr = useTimeArr()
 
 	const numSplit = (s: string) => {
@@ -10,31 +10,32 @@ export const useTimeMatrix = () => {
 	}
 
 	return useMemo(() => {
-		if (!timeArr.length) return
 		const [num1, num2] = timeArr
-		const res: (typeof TimeList)[keyof typeof TimeList][] = []
+		const numList: string[] = []
 
-		res.push(...numSplit(num1).map(k => TimeList[k as keyof typeof TimeList]))
-		res.push(TimeList[":"])
-		res.push(...numSplit(num2).map(k => TimeList[k as keyof typeof TimeList]))
-		// res.push(TimeList[":"])
-		// res.push(...numSplit(num3).map(k => TimeList[k as keyof typeof TimeList]))
+		numList.push(...numSplit(num1))
+		numList.push(":")
+		numList.push(...numSplit(num2))
 
-		return res
+		const res: (typeof TimeList)[keyof typeof TimeList][] = numList.map(
+			k => TimeList[k as keyof typeof TimeList]
+		)
+
+		return [res, numList]
 	}, [timeArr])
 }
 
 export const useTimeArr = () => {
-	const [state, setState] = useState<string[]>([])
-	const timerRef = useRef<number | null>(null)
-
-	const action = () => {
+	const getTime = () => {
 		const date = new Date()
 		const hour = date.getHours()
 		const minute = date.getMinutes()
 
-		setState([addZero(hour), addZero(minute), addZero(date.getSeconds())])
+		return [addZero(hour), addZero(minute)]
 	}
+
+	const [state, setState] = useState<string[]>(getTime())
+	const timerRef = useRef<number | null>(null)
 
 	const clear = useCallback(() => {
 		if (timerRef.current) {
@@ -42,11 +43,11 @@ export const useTimeArr = () => {
 		}
 	}, [])
 
+	timerRef.current = setInterval(() => {
+		setState(getTime())
+	}, 900)
+
 	useEffect(() => {
-		action()
-
-		timerRef.current = setInterval(action, 900)
-
 		return clear
 	}, [])
 
