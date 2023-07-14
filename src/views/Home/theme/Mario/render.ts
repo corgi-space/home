@@ -1,14 +1,15 @@
 import * as PIXI from "pixi.js"
-import Brick from "./assets/brick.png"
-import Reward from "./assets/reward.png"
+import Brick from "./assets/stone.png"
+import Reward from "./assets/frame-5.gif"
+import { ICreateSprite, renderTime } from "../utils/renderTime"
 
-const BrickSize = 40
+const BrickSize = 36
 const SideWidth = 50
 
 export class CreateTheme {
-	app: PIXI.Application
-	isd: Boolean = false
-	public renderTime!: (timeMatrix: number[][][], timeArr: string[]) => void
+	private app: PIXI.Application
+	private destroyedList: Function[] = []
+
 	constructor(el: string) {
 		this.app = new PIXI.Application({
 			width: window.innerWidth - SideWidth, // 减去侧边栏
@@ -21,87 +22,57 @@ export class CreateTheme {
 		this.loadResource()
 	}
 
-	loadResource() {
-		this.renderTime = createTimeContainer(this.app, this.createBrick.bind(this))
+	/**
+	 * 销毁
+	 */
+	public destroyed() {
+		this.destroyedList.forEach(item => item())
+		this.app.destroy()
 	}
 
-	async createBrick({ father, index, container }) {
-		const texture = await PIXI.Assets.load(index === 2 ? Reward : Brick)
-		const brick = PIXI.Sprite.from(texture)
+	/**
+	 * 初始化主题
+	 */
+	private loadResource() {
+		// PIXI.loadTextures.add("gifImage", "path/to/your/gifImage.gif")
+		/**
+		 * 渲染时间
+		 */
+		const clearTimeRender = renderTime(
+			this.app,
+			this.createBrick.bind(this),
+			BrickSize
+		)
+		this.destroyedList.push(clearTimeRender)
+	}
+
+	/**
+	 * 生成砖块
+	 * @param param0
+	 *
+	 */
+	private createBrick: ICreateSprite = async ({ father, index, container }) => {
+		// const texture = await PIXI.Assets.load()
+		const brick = PIXI.Sprite.from(index === 2 ? Reward : Brick)
 
 		brick.width = BrickSize
 		brick.height = BrickSize
 
 		brick.interactive = true
 		brick.cursor = "pointer"
-
-		if (index !== 2) {
-			brick.on("click", async e => {
-				console.log("点击了", e, index)
+		brick.on("pointertap", async () => {
+			if (index !== 2) {
 				father.removeChild(brick)
-			})
-		}
-
-		return brick
-	}
-}
-
-function createTimeContainer(
-	app: PIXI.Application,
-	renderItem: (options: {
-		father: PIXI.Container
-		index: number
-		container: PIXI.Container & { _timeArr?: string[] }
-	}) => Promise<PIXI.Sprite>
-) {
-	const timeContainer: PIXI.Container & { _timeArr?: string[] } =
-		new PIXI.Container()
-
-	timeContainer.x = app.view.width / 2 - BrickSize * 12
-	timeContainer.y = BrickSize
-
-	app.stage.addChild(timeContainer)
-	const renderTime = (timeMatrix: number[][][], timeArr: string[]) => {
-		/**
-		 * 生成单个数字
-		 * @param numMatrix 方阵
-		 * @param i 下标
-		 */
-		const renderNum = (numMatrix: number[][], i: number) => {
-			numMatrix.forEach((row, rowI) => {
-				row.forEach(async (item, index) => {
-					if (item) {
-						const brick = await renderItem({
-							father: timeContainer.children[i] as PIXI.Container,
-							index: i,
-							container: timeContainer
-						})
-						brick.x = i * BrickSize * 4 + index * BrickSize
-						brick.y = rowI * BrickSize
-						;(timeContainer.children[i] as PIXI.Container).addChild(brick)
-					}
-				})
-			})
-		}
-
-		timeMatrix.forEach((numMatrix, i) => {
-			if (timeContainer.children[i]) {
-				if (
-					!timeContainer._timeArr ||
-					timeContainer._timeArr[i] !== timeArr[i]
-				) {
-					// eslint-disable-next-line @typescript-eslint/no-extra-semi
-					;(timeContainer.children[i] as PIXI.Container).removeChildren()
-					renderNum(numMatrix, i)
-				}
 			} else {
-				timeContainer.addChild(new PIXI.Container())
-				renderNum(numMatrix, i)
+				/**
+				 * 当分号被点击时，重置时间渲染
+				 *
+				 * 修改数字标记，在下一秒渲染时重新绘制所有数字
+				 */
+				container._timeArr = undefined
 			}
 		})
 
-		timeContainer._timeArr = timeArr
+		return brick
 	}
-
-	return renderTime
 }

@@ -1,21 +1,13 @@
-import { ReactNode, useEffect, useState } from "react"
-// import TimeBox from "./timeBox"
+import { ReactNode, useEffect } from "react"
 import { CreateTheme } from "./render"
-import { useTimeMatrix } from "../../hooks/useTimeArr"
 
 function index(props: { children: ReactNode }) {
-	const [timeMatrix, timeArr] = useTimeMatrix()
-	const [app, setApp] = useState<CreateTheme>()
-
 	useEffect(() => {
-		setApp(new CreateTheme("#theme-bg"))
-	}, [])
-
-	useEffect(() => {
-		if (app && timeMatrix) {
-			app.renderTime(timeMatrix, timeArr)
+		const themeApp = new CreateTheme("#theme-bg")
+		return () => {
+			themeApp.destroyed()
 		}
-	}, [timeMatrix])
+	}, [])
 
 	return (
 		<div className="relative">
