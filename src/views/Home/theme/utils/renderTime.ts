@@ -125,7 +125,7 @@ export const getTimeMatrix = (): [number[][][], string[]] => {
 	return [res, numList]
 }
 
-const getTime = () => {
+export const getTime = (): [string, string] => {
 	const date = new Date()
 	const hour = date.getHours()
 	const minute = date.getMinutes()

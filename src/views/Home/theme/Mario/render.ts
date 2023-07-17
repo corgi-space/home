@@ -3,7 +3,7 @@ import Brick from "./assets/stone.png"
 import Reward from "./assets/frame-5.gif"
 import { ICreateSprite, renderTime } from "../utils/renderTime"
 
-const BrickSize = 36
+const BrickSize = 30
 const SideWidth = 50
 
 export class CreateTheme {
