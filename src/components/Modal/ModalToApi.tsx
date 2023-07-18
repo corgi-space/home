@@ -11,6 +11,7 @@ import {
 } from "react"
 import { Root, createRoot } from "react-dom/client"
 import zhCN from "antd/lib/locale/zh_CN"
+import { ThemeColor } from "@/config"
 
 type IImportComp<IO, IR> = ({
 	options,
@@ -50,8 +51,8 @@ const createModal = <IO, IR>(
 		_: unknown,
 		ref: Ref<ModalRef<IOptionsWithHandle<IO>>> | undefined
 	) => {
-		const { theme, themeColor } = useAppStore.getState()
-		const themeConfig = getThemeConfig(theme, themeColor)
+		const { theme } = useAppStore.getState()
+		const themeConfig = getThemeConfig(theme, ThemeColor)
 		const [isModalOpen, setIsModalOpen] = useState(false)
 		const [options, setOptions] = useState<IOptionsWithHandle<IO>>()
 		const [title, setTitle] = useState<ReactNode>(control.title)
@@ -139,7 +140,7 @@ const ModalToApi = <IO, IR>(
 	 */
 	const unmontTask: {
 		delay: number
-		timer: NodeJS.Timeout | null
+		timer: number | null
 		pause: () => void
 		start: () => void
 	} = {

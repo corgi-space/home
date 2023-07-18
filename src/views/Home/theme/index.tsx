@@ -1,32 +1,12 @@
 import { ToolOutlined } from "@ant-design/icons"
-// import Mario from "./Mario"
-// import Normal from "./Normal"
 import { ReactNode, useState, useMemo, useRef, useEffect } from "react"
-import "../style/index.scss"
-import { loadView } from "../../../router/load"
 import createDrawer, { DrawerRef } from "@/components/CreateDrawer"
 import { Button } from "antd"
 import { useSessionStorageState } from "ahooks"
-
-const themeList = [
-	{
-		key: "normal",
-		name: "默认",
-		photo: "",
-		theme: (props: unknown) => loadView(() => import("./Normal"), props)
-	},
-	{
-		key: "mario",
-		name: "马里奥",
-		photo: "",
-		theme: (props: unknown) => loadView(() => import("./Mario"), props)
-	}
-] as const
-
-type IThemeKeys = (typeof themeList)[number]["key"]
+import themeList, { IThemeKeys } from "./list"
 
 type IThemeDrawerOptions = {
-	themeKey: IThemeKeys
+	themeKey: IThemeKeys | undefined
 	setThemeKey: React.Dispatch<React.SetStateAction<IThemeKeys>>
 }
 type IThemeDrawer = DrawerRef<IThemeDrawerOptions>
@@ -88,7 +68,12 @@ function index(props: { children: ReactNode }) {
 	}, [themeKey])
 
 	const openDrawer = () => {
-		drawerRef.current?.open({ themeKey, setThemeKey })
+		drawerRef.current?.open({
+			themeKey,
+			setThemeKey: setThemeKey as React.Dispatch<
+				React.SetStateAction<IThemeKeys>
+			>
+		})
 	}
 
 	return (

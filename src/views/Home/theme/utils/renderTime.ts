@@ -111,12 +111,12 @@ export function createTimeRenderer(
  */
 export const getTimeMatrix = (): [number[][][], string[]] => {
 	const timeList = getTime()
-	const [num1, num2] = timeList
+	const { hours, minutes } = timeList
 	const numList: string[] = []
 
-	numList.push(...numSplit(num1))
+	numList.push(...numSplit(hours))
 	numList.push(":")
-	numList.push(...numSplit(num2))
+	numList.push(...numSplit(minutes))
 
 	const res: (typeof TimeList)[keyof typeof TimeList][] = numList.map(
 		k => TimeList[k as keyof typeof TimeList]
@@ -125,12 +125,20 @@ export const getTimeMatrix = (): [number[][][], string[]] => {
 	return [res, numList]
 }
 
-export const getTime = (): [string, string] => {
-	const date = new Date()
-	const hour = date.getHours()
-	const minute = date.getMinutes()
+const WeekList = ["日", "一", "二", "三", "四", "五", "六"]
 
-	return [addZero(hour), addZero(minute)]
+export const getTime = () => {
+	const date = new Date()
+
+	return {
+		year: date.getFullYear(),
+		month: addZero(date.getMonth() + 1),
+		day: addZero(date.getDate()),
+		hours: addZero(date.getHours()),
+		minutes: addZero(date.getMinutes()),
+		seconds: addZero(date.getSeconds()),
+		week: WeekList[date.getDay()]
+	}
 }
 
 const numSplit = (s: string) => {

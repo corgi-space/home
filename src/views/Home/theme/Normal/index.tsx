@@ -4,8 +4,10 @@ import { useRequest } from "ahooks"
 import dayjs from "dayjs"
 import { ReactNode } from "react"
 import TimeBox from "./TimeBox"
+import useAppStore from "@/store/appStore"
 
 function index(props: { children: ReactNode }) {
+	const { theme } = useAppStore()
 	const { data: photoSrc } = useRequest(() =>
 		cacheRequest<string>(() => GetBingPhoto().then(res => res.data), {
 			key: "bingPhoto",
@@ -15,13 +17,17 @@ function index(props: { children: ReactNode }) {
 	)
 
 	return (
-		<div className="full relative">
-			<div className="full absolute left-0 top-0 -z-[1] object-cover">
+		<div className="full">
+			<div className="full fixed left-0 top-0 -z-[1]">
+				{theme === "dark" ? (
+					<div className="full absolute z-[1] backdrop-blur-sm backdrop-brightness-90"></div>
+				) : null}
+
 				<img src={photoSrc} className="full block object-cover"></img>
 			</div>
-			<div className="container mx-auto box-border h-full py-4 text-center">
-				<TimeBox />
-				<div className="p-5">{props.children}</div>
+			<div className="container mx-auto box-border flex h-full flex-col py-4 text-center">
+				<TimeBox className="mb-4" />
+				<div className="flex-1">{props.children}</div>
 			</div>
 		</div>
 	)
