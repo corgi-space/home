@@ -1,5 +1,12 @@
-const app = AppModal(() => {
+import { createAppModal } from "../../hooks/CreateAppModal"
 
-}, {
-  // something....
-})
+const app = createAppModal(
+	() => {
+		return <div>这是内容</div>
+	},
+	{
+		// something....
+	}
+)
+
+export default app

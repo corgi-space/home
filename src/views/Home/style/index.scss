@@ -39,6 +39,31 @@
   }
 }
 
+.appModal{
+  .ant-modal-content{
+    padding: 0;
+    overflow: hidden;
+  }
+  .tools{
+    @apply  sticky top-0 w-full flex box-border justify-between items-center;
+    --tools-h: 25px;
+    height: var(--tools-h);
+  }
+  .tools-item{
+    padding: 0 10px;
+    height: var(--tools-h);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    transition: all .3s;
+    &:hover{
+      color: #fff;
+      background-color: #a5a5a5;
+    }
+  }
+}
+
 .loading {
   display: block;
   position: relative;
