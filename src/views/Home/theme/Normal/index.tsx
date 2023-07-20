@@ -11,13 +11,13 @@ const DefaultPhoto =
 
 function index(props: { children: ReactNode }) {
 	const { theme } = useAppStore()
-	const { data: photoSrc } = useRequest(() =>
-		cacheRequest<string>(() => GetBingPhoto().then(res => res.data), {
-			key: "bingPhoto",
-			storage: sessionStorage,
-			expirationTime: dayjs().add(1, "day").hour(8).minute(0).diff(dayjs())
-		})
-	)
+	// const { data: photoSrc } = useRequest(() =>
+	// 	cacheRequest<string>(() => GetBingPhoto().then(res => res.data), {
+	// 		key: "bingPhoto",
+	// 		storage: sessionStorage,
+	// 		expirationTime: dayjs().add(1, "day").hour(8).minute(0).diff(dayjs())
+	// 	})
+	// )
 
 	return (
 		<div className="full">
@@ -29,10 +29,7 @@ function index(props: { children: ReactNode }) {
 					></div>
 				) : null}
 
-				<img
-					src={photoSrc || DefaultPhoto}
-					className="full block object-cover"
-				></img>
+				<img src={DefaultPhoto} className="full block object-cover"></img>
 			</div>
 			<div className="container mx-auto box-border flex h-full flex-col py-4 text-center">
 				<TimeBox className="mb-4" />

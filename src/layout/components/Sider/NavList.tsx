@@ -17,8 +17,9 @@ function navList() {
 	const clickItem = (key: string) => {
 		navigate(key)
 	}
+	// h-[calc(100%-80px-160px)]
 	return (
-		<div className="my-6 flex h-[calc(100%-80px-170px)] flex-col justify-center px-[15px]">
+		<div className="my-6 flex flex-1 flex-col justify-center overflow-y-auto overflow-x-hidden pl-[15px]">
 			{HeaderItems.map(item => (
 				<div
 					key={item.key}
@@ -27,7 +28,7 @@ function navList() {
 						(localtion.pathname === item.key
 							? "text-primary opacity-100"
 							: "opacity-50") +
-						" mb-2 box-border flex h-10 origin-left cursor-pointer items-center overflow-hidden whitespace-nowrap transition-transform hover:scale-[1.1] hover:opacity-100"
+						" mb-2 box-border flex h-10 flex-shrink-0 origin-left cursor-pointer items-center overflow-hidden whitespace-nowrap transition-transform hover:scale-[1.1] hover:opacity-100"
 					}
 				>
 					<div className="mr-3 shrink-0 text-lg leading-[0px] transition-all">

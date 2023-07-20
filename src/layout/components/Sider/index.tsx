@@ -22,7 +22,7 @@ function index() {
 			style={{
 				background: bgColor
 			}}
-			className="group fixed left-0 top-0 z-10 box-border h-full w-[var(--sider-initWidth)] overflow-hidden shadow transition-all hover:w-[180px] hover:px-3"
+			className="group fixed left-0 top-0 z-10 box-border flex h-full w-[var(--sider-initWidth)] flex-col overflow-hidden shadow transition-all hover:w-[180px] hover:px-3"
 		>
 			<div className="mt-4 box-border flex h-[40px] items-center overflow-hidden whitespace-nowrap px-[9px]">
 				<img
@@ -35,10 +35,8 @@ function index() {
 			</div>
 
 			<NavList />
-			<div>
-				<Tools />
-				<UserBox />
-			</div>
+			<Tools />
+			<UserBox />
 		</div>
 	)
 }

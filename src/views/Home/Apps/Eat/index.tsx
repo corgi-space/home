@@ -1,12 +1,24 @@
-import { IAppProps } from "../../type"
+import EatApp from "./app"
 import Meta from "./meta"
+import useEat from "./useEat"
 
-function index({ size }: IAppProps) {
+function index() {
+	const [runEat, content] = useEat()
+
+	const openApp = () => {
+		EatApp()
+	}
+
+	const run = (e: MouseEventHandler<HTMLButtonElement>) => {
+		e.stopPropagation()
+		runEat()
+	}
+
 	return (
 		<>
-			<div className="appItem-icon">
-				<h3>今天吃什么</h3>
-				<button>开始</button>
+			<div className="appItem-icon" onClick={openApp}>
+				<h3>{content}</h3>
+				<button onClick={run}>开始</button>
 			</div>
 			<p className="appItem-title">{Meta["name"]}</p>
 		</>

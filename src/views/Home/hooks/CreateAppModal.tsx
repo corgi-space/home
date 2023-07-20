@@ -40,7 +40,7 @@ const AppModal = (Children: FC, options: IAppModalOptions) => {
 			<ConfigProvider theme={themeConfig}>
 				<Modal
 					maskClosable={false}
-					width={options.width}
+					width={options.width || "800px"}
 					open={isModalOpen}
 					footer={false}
 					bodyStyle={{ position: "relative" }}
@@ -71,7 +71,7 @@ const AppModal = (Children: FC, options: IAppModalOptions) => {
 
 export const createAppModal = (
 	children: () => JSX.Element,
-	options: IAppModalOptions
+	options: IAppModalOptions = {}
 ) => {
 	let holder: ModalHandleRef | undefined, root: Root
 	const Children = memo(children)
@@ -90,7 +90,7 @@ export const createAppModal = (
 	/**
 	 * 卸载任务
 	 *
-	 * 在弹框关闭的一定时间后，卸载所有组件
+	 * 在弹框关闭的一定时间后，卸载组件
 	 */
 	const unmontTask: {
 		timer: NodeJS.Timeout | null
