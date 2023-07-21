@@ -1,24 +1,39 @@
+import { MouseEvent } from "react"
 import EatApp from "./app"
 import Meta from "./meta"
 import useEat from "./useEat"
+import BgPath from "./assets/bg.svg"
+import { Button } from "antd"
 
 function index() {
-	const [runEat, content] = useEat()
+	const { run, runing, content } = useEat()
 
 	const openApp = () => {
 		EatApp()
 	}
 
-	const run = (e: MouseEventHandler<HTMLButtonElement>) => {
+	const clickRun = (e: MouseEvent<HTMLButtonElement>) => {
 		e.stopPropagation()
-		runEat()
+		run()
 	}
 
 	return (
 		<>
-			<div className="appItem-icon" onClick={openApp}>
+			<div
+				className="appItem-icon flex flex-col items-center justify-center"
+				style={{
+					backgroundImage: `url(${BgPath})`
+				}}
+				onClick={openApp}
+			>
 				<h3>{content}</h3>
-				<button onClick={run}>开始</button>
+				<Button
+					type={runing ? "default" : "primary"}
+					onClick={clickRun}
+					className="mt-3 w-1/2 !rounded-xl"
+				>
+					{runing ? "停止" : "开始"}
+				</Button>
 			</div>
 			<p className="appItem-title">{Meta["name"]}</p>
 		</>
