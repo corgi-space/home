@@ -22,7 +22,9 @@ function index() {
 			<div
 				className="appItem-icon flex flex-col items-center justify-center"
 				style={{
-					backgroundImage: `url(${BgPath})`
+					backgroundImage: `url(${BgPath})`,
+					backgroundPosition: "-160px -60px",
+					backgroundSize: "cover"
 				}}
 				onClick={openApp}
 			>
