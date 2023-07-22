@@ -17,19 +17,29 @@ interface ModalHandleRef {
 	open: () => void
 }
 
+const defaultOptions = {
+	width: "800px"
+} as IAppModalOptions
+
 const AppModal = (Children: FC, options: IAppModalOptions) => {
 	const customModal = (_: unknown, ref: Ref<ModalHandleRef>) => {
+		const _options = Object.assign({}, defaultOptions, options)
 		const { theme } = useAppStore.getState()
 		const themeConfig = getThemeConfig(theme, ThemeColor)
 		const [isModalOpen, setIsModalOpen] = useState(false)
+		const [fullStatus, setFullStatus] = useState(false)
 
 		const open = () => {
 			setIsModalOpen(true)
 		}
 
 		const close = () => {
-			options._close && options._close()
+			_options._close && _options._close()
 			setIsModalOpen(false)
+		}
+
+		const handleFull = () => {
+			setFullStatus(!fullStatus)
 		}
 
 		useImperativeHandle(ref, () => ({
@@ -40,7 +50,7 @@ const AppModal = (Children: FC, options: IAppModalOptions) => {
 			<ConfigProvider theme={themeConfig}>
 				<Modal
 					maskClosable={false}
-					width={options.width || "800px"}
+					width={fullStatus ? "100vw" : _options.width}
 					open={isModalOpen}
 					footer={false}
 					bodyStyle={{ position: "relative" }}
@@ -52,7 +62,7 @@ const AppModal = (Children: FC, options: IAppModalOptions) => {
 					<div className="tools">
 						<div></div>
 						<div className="flex items-center">
-							<div className="tools-item">
+							<div className="tools-item" onClick={handleFull}>
 								<FullscreenOutlined />
 							</div>
 							<div className="tools-item" onClick={close}>
