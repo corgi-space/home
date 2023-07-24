@@ -50,14 +50,14 @@ const AppModal = (Children: FC, options: IAppModalOptions) => {
 			<ConfigProvider theme={themeConfig}>
 				<Modal
 					maskClosable={false}
-					width={fullStatus ? "100vw" : _options.width}
+					width={_options.width}
 					open={isModalOpen}
 					footer={false}
 					bodyStyle={{ position: "relative" }}
 					closeIcon={false}
 					destroyOnClose
 					style={{ padding: "0px" }}
-					className="appModal"
+					className={(fullStatus ? "appMpdal-full" : "") + " appModal"}
 				>
 					<div className="tools">
 						<div></div>

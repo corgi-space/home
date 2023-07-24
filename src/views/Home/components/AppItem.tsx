@@ -18,14 +18,15 @@ function AppItem({ item }: { item: IAppIcon }) {
 			fontSize: item.size === "small" ? "12px" : "14px"
 		}
 	}, [item.size])
-
+	console.log(Apps)
 	const App = Apps[item.app]
 
 	return (
 		<div key={item.id} className="appItem" style={style}>
 			<Suspense fallback={<LoadingApp />}>
-				<App size={item.size}></App>
+				<App.content size={item.size}></App.content>
 			</Suspense>
+			<p className="appItem-title">{App.name}</p>
 		</div>
 	)
 }

@@ -1,13 +1,16 @@
 import { lazy } from "react"
 import { IAppMeta } from "../type"
 
-const metaModules = import.meta.glob("./*/meta.ts")
+const metaModules = import.meta.glob("./*/meta.json")
 
 export const AppMetas: Record<string, IAppMeta> = {}
 export const Apps: Record<
 	string,
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	React.LazyExoticComponent<React.ComponentType<any>>
+	{
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		content: React.LazyExoticComponent<React.ComponentType<any>>
+		name: string
+	}
 > = {}
 
 for (const path in metaModules) {
@@ -18,7 +21,11 @@ for (const path in metaModules) {
 			return
 		}
 		const key = match[1]
-		AppMetas[key] = (mod as { default: IAppMeta }).default
-		Apps[key] = lazy(() => import(`./${key}/index.tsx`))
+		const meta = (mod as { default: IAppMeta }).default
+		AppMetas[key] = meta
+		Apps[key] = {
+			content: lazy(() => import(`./${key}/index.tsx`)),
+			name: meta.name
+		}
 	})
 }

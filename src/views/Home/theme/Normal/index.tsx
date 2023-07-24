@@ -1,7 +1,3 @@
-import { GetBingPhoto } from "@/api/common"
-import { cacheRequest } from "@/utils/storage"
-import { useRequest } from "ahooks"
-import dayjs from "dayjs"
 import { ReactNode } from "react"
 import TimeBox from "./TimeBox"
 import useAppStore from "@/store/appStore"

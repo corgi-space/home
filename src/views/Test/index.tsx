@@ -1,4 +1,7 @@
-import NavList from "@/layout/components/Sider/NavList"
+const Item = ({ content }: { content: string }) => {
+	console.log(content)
+	return <p>{content}</p>
+}
 
 const HexagonalMesh1 = () => {
 	const list = new Array(20).fill("和")
@@ -6,21 +9,9 @@ const HexagonalMesh1 = () => {
 		<>
 			<div className="flex h-[100px] w-[50px] flex-col justify-center overflow-auto">
 				{list.map((item, index) => (
-					<div key={index}>
-						{item} + {index}
-					</div>
+					<Item key={index} content={item + index} />
 				))}
 			</div>
-			<iframe
-				src="//player.bilibili.com/player.html?aid=752844614&bvid=BV1ik4y1R7gR&cid=178608493&page=1"
-				scrolling="no"
-				border="0"
-				frameBorder="no"
-				framespacing="0"
-				allowfullscreen="true"
-			>
-				{" "}
-			</iframe>
 		</>
 	)
 }

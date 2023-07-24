@@ -10,15 +10,15 @@ const EatApp = createAppModal(() => {
 		<div
 			style={{
 				backgroundImage: `url(${BgPath})`,
-				backgroundSize: ""
+				backgroundSize: "contain"
 			}}
-			className="text-center"
+			className="flex h-full flex-col items-center justify-evenly text-center"
 		>
 			<h3 className="my-10 text-lg">{content}</h3>
 			<Button
 				type={runing ? "default" : "primary"}
 				onClick={run}
-				className="mt-3 w-1/2 !rounded-xl"
+				className="mt-3 w-40 !rounded-full"
 			>
 				{runing ? "停止" : "开始"}
 			</Button>

@@ -7,6 +7,7 @@ import useAppStore from "@/store/appStore"
 import "dayjs/locale/zh-cn"
 import { useMemo, useEffect } from "react"
 import { ThemeColor } from "@/config"
+import "./views/Home/Apps/index"
 dayjs.locale("zh-cn")
 
 function App() {
