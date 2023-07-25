@@ -28,15 +28,5 @@ export const defaultList: IAppIcon[] = [
 		id: 3,
 		size: "normal",
 		app: "English"
-	},
-	{
-		id: 4,
-		size: "normal",
-		app: "English"
-	},
-	{
-		id: 5,
-		size: "normal",
-		app: "English"
 	}
 ]

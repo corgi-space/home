@@ -5,19 +5,12 @@ import { getThemeConfig } from "./styles/theme"
 import AppRouter from "@/router"
 import useAppStore from "@/store/appStore"
 import "dayjs/locale/zh-cn"
-import { useMemo, useEffect } from "react"
+import { useMemo } from "react"
 import { ThemeColor } from "@/config"
-import "./views/Home/Apps/index"
 dayjs.locale("zh-cn")
 
 function App() {
 	const { theme } = useAppStore()
-
-	// useEffect(() => {
-	// 	WebFont.load({
-
-	// 	})
-	// }, [])
 
 	const themeConfig = useMemo(() => getThemeConfig(theme, ThemeColor), [theme])
 	return (

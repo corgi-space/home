@@ -18,7 +18,7 @@ function AppItem({ item }: { item: IAppIcon }) {
 			fontSize: item.size === "small" ? "12px" : "14px"
 		}
 	}, [item.size])
-	console.log(Apps)
+
 	const App = Apps[item.app]
 
 	return (

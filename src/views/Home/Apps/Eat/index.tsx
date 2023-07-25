@@ -18,7 +18,7 @@ function index() {
 
 	return (
 		<div
-			className="appItem-icon flex flex-col items-center justify-center"
+			className="appItem-icon flex cursor-pointer flex-col items-center justify-center"
 			style={{
 				backgroundImage: `url(${BgPath})`,
 				backgroundPosition: "-160px -60px",
