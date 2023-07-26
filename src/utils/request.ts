@@ -76,7 +76,7 @@ service.interceptors.response.use(
 			// }
 			return Promise.reject(res.info)
 		} else {
-			return res
+			return res.data
 		}
 	},
 	error => {
@@ -95,13 +95,13 @@ interface requestOptions {
 	[x: string]: unknown
 }
 
-export function Get<T = unknown>(options: requestOptions): Promise<Result<T>> {
+export function Get<T = unknown>(options: requestOptions): Promise<T> {
 	return service({ ...options, method: "get" })
 }
-export function Post<T = unknown>(options: requestOptions): Promise<Result<T>> {
+export function Post<T = unknown>(options: requestOptions): Promise<T> {
 	return service({ ...options, method: "post" })
 }
-export function Put<T = unknown>(options: requestOptions): Promise<Result<T>> {
+export function Put<T = unknown>(options: requestOptions): Promise<T> {
 	return service({ ...options, method: "put" })
 }
 

@@ -20,9 +20,9 @@
 
   .appItem-icon{
     border-radius: 16px;
-    background-color: var(--bg-color);
     transition: all .3s;
     overflow: hidden;
+    box-sizing: border-box;
     @apply full;
       &:hover{
         box-shadow: 0 0 10px #0000004d;

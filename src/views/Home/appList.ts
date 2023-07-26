@@ -9,7 +9,6 @@ export const SizeConfig = {
 export interface IAppIcon {
 	id: number
 	size: IAppSize
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	app: string
 }
 
@@ -26,7 +25,7 @@ export const defaultList: IAppIcon[] = [
 	},
 	{
 		id: 3,
-		size: "normal",
+		size: "big",
 		app: "English"
 	}
 ]

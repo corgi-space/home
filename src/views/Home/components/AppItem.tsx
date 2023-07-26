@@ -2,6 +2,7 @@ import { Suspense, memo, useMemo } from "react"
 import { IAppIcon, SizeConfig } from "../appList"
 import { isString } from "lodash-es"
 import { Apps } from "../Apps"
+import LoadingApp from "./LoadingApp"
 
 function AppItem({ item }: { item: IAppIcon }) {
 	const style = useMemo<React.CSSProperties>(() => {
@@ -27,15 +28,6 @@ function AppItem({ item }: { item: IAppIcon }) {
 				<App.content size={item.size}></App.content>
 			</Suspense>
 			<p className="appItem-title">{App.name}</p>
-		</div>
-	)
-}
-
-function LoadingApp() {
-	return (
-		<div className="appItem-icon flex flex-col items-center justify-evenly">
-			<img src="/logo.png" alt="" className="mb-2 w-1/2 object-cover" />
-			<div className="loading"></div>
 		</div>
 	)
 }
