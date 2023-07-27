@@ -4,7 +4,7 @@ let SCREEN_WIDTH = 256
 let SCREEN_HEIGHT = 240
 let FRAMEBUFFER_SIZE = SCREEN_WIDTH * SCREEN_HEIGHT
 
-let canvas_ctx, image, nes
+let canvas_ctx, image
 let framebuffer_u8, framebuffer_u32
 
 let AUDIO_BUFFERING = 512
@@ -40,6 +40,19 @@ let NeskeyMap = {
 	BUTTON_SELECT: 9, // Tab -> 1
 	BUTTON_START: 13 // Return -> 2
 }
+
+let nes = new jsnes.NES({
+	onFrame: function (framebuffer_24) {
+		for (let i = 0; i < FRAMEBUFFER_SIZE; i++)
+			framebuffer_u32[i] = 0xff000000 | framebuffer_24[i]
+	},
+	onAudioSample: function (l, r) {
+		audio_samples_L[audio_write_cursor] = l
+		audio_samples_R[audio_write_cursor] = r
+		audio_write_cursor = (audio_write_cursor + 1) & SAMPLE_MASK
+	},
+	moyu: true
+})
 
 function onAnimationFrame() {
 	window.requestAnimationFrame(onAnimationFrame)
@@ -126,7 +139,6 @@ function nes_init(canvas_id) {
 }
 
 function nes_boot(rom_data) {
-	console.log(nes)
 	nes.loadROM(rom_data)
 	window.requestAnimationFrame(onAnimationFrame)
 }
@@ -137,20 +149,7 @@ function nes_load_data(canvas_id, rom_data) {
 }
 
 export function start(canvas_id, path) {
-	nes = new jsnes.NES({
-		onFrame: function (framebuffer_24) {
-			console.log(framebuffer_24)
-
-			for (let i = 0; i < FRAMEBUFFER_SIZE; i++)
-				framebuffer_u32[i] = 0xff000000 | framebuffer_24[i]
-		},
-		onAudioSample: function (l, r) {
-			audio_samples_L[audio_write_cursor] = l
-			audio_samples_R[audio_write_cursor] = r
-			audio_write_cursor = (audio_write_cursor + 1) & SAMPLE_MASK
-		},
-		moyu: true
-	})
+	
 
 	nes_init(canvas_id)
 

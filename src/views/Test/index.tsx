@@ -1,4 +1,3 @@
-import { loadScript } from "@/utils"
 import { useEffect } from "react"
 import { start } from "./game"
 
