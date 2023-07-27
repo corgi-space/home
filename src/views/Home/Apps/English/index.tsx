@@ -1,15 +1,21 @@
 import { useRequest } from "ahooks"
 import { Get } from "@/utils/request"
-import { useEffect } from "react"
 import { IDayEnglish } from "./type"
 import LoadingApp from "../../components/LoadingApp"
+import dayjs from "dayjs"
+
+const cacheKey = "dayEnglish"
 
 function index() {
-	const { data } = useRequest(() => Get<IDayEnglish>({ url: "/getDayEnglish" }))
-
-	useEffect(() => {
-		console.log(data)
-	}, [data])
+	const { data } = useRequest(
+		() => Get<IDayEnglish>({ url: "/getDayEnglish" }),
+		{
+			cacheKey,
+			staleTime: dayjs().add(1, "day").hour(8).minute(0).diff(dayjs()), // 缓存到明天早上八点
+			setCache: data => localStorage.setItem(cacheKey, JSON.stringify(data)),
+			getCache: () => JSON.parse(localStorage.getItem(cacheKey) || "{}")
+		}
+	)
 
 	if (!data) {
 		return <LoadingApp />

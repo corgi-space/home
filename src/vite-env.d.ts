@@ -2,6 +2,7 @@
 
 declare interface Window {
 	savePosition: Function
+	jsonpCallback: Function
 }
 
 declare type ITable<T> = {
