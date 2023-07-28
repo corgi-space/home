@@ -14,3 +14,5 @@ declare interface IPage {
 	page: number
 	size: number
 }
+
+declare module "jsnes"

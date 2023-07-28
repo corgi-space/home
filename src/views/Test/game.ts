@@ -4,8 +4,8 @@ let SCREEN_WIDTH = 256
 let SCREEN_HEIGHT = 240
 let FRAMEBUFFER_SIZE = SCREEN_WIDTH * SCREEN_HEIGHT
 
-let canvas_ctx, image
-let framebuffer_u8, framebuffer_u32
+let canvas_ctx: CanvasRenderingContext2D, image: ImageData
+let framebuffer_u8: ArrayLike<number>, framebuffer_u32
 
 let AUDIO_BUFFERING = 512
 let SAMPLE_COUNT = 4 * 1024
@@ -15,38 +15,49 @@ let audio_samples_R = new Float32Array(SAMPLE_COUNT)
 let audio_write_cursor = 0,
 	audio_read_cursor = 0
 
-/*var NeskeyMap = {
-	BUTTON_UP: 38, // up
-	BUTTON_DOWN:40, // Down
-	BUTTON_LEFT:37, // Left
-	BUTTON_RIGHT:39, // Right
-	BUTTON_A:65,  // 'a' - qwerty, dvorak
-	BUTTON_Q:81, // 'q' - azerty
-	BUTTON_S:83, // 's' - qwerty, azerty
-	BUTTON_O:79, // 'o' - dvorak
-	BUTTON_SELECT:9, // Tab
-	BUTTON_START:13 // Return
-}*/
+/**
+ * 按键映射
+ */
+const NeskeyMap = {
+	1: {
+		BUTTON_UP: 87, // up  -> W
+		BUTTON_DOWN: 83, // Down -> S
+		BUTTON_LEFT: 65, // Left -> D
+		BUTTON_RIGHT: 68, // Right -> A
+		BUTTON_A: 75, // A -> J
+		BUTTON_B: 74, // B -> k
+		BUTTON_SELECT: 9, // Select -> Tab
+		BUTTON_START: 13 // Enter -> Enter
+	},
+	2: {
+		BUTTON_UP: 38, // up -> up
+		BUTTON_DOWN: 40, // Down -> Down
+		BUTTON_LEFT: 37, // Left -> Left
+		BUTTON_RIGHT: 39, // Right -> Right
+		BUTTON_A: 98, // A -> 1
+		BUTTON_B: 97 // B -> 2
+	}
+} as const
 
-let NeskeyMap = {
-	BUTTON_UP: 87, // up  -> W
-	BUTTON_DOWN: 83, // Down -> S
-	BUTTON_LEFT: 65, // Left -> D
-	BUTTON_RIGHT: 68, // Right -> A
-	BUTTON_A: 73, // 's' - qwerty, azerty -> I
-	BUTTON_Q: 75, // 'q' - azerty -> K
-	BUTTON_S: 74, // 'a' - qwerty, dvorak  -> J
-	BUTTON_O: 85, // 'o' - dvorak -> U
-	BUTTON_SELECT: 9, // Tab -> 1
-	BUTTON_START: 13 // Return -> 2
+function reduceNeskeyMap(obj: Record<string, number>, player: number) {
+	return Object.keys(obj).reduce((pre, key) => {
+		const cur = obj[key]
+		pre[cur] = [player, key]
+		return pre
+	}, {} as Record<number, [number, string]>)
+}
+
+const NeskeyMapHandle = {
+	...reduceNeskeyMap(NeskeyMap[1], 1),
+	...reduceNeskeyMap(NeskeyMap[2], 2)
 }
 
 let nes = new jsnes.NES({
-	onFrame: function (framebuffer_24) {
+	onFrame: function (framebuffer_24: number[]) {
 		for (let i = 0; i < FRAMEBUFFER_SIZE; i++)
 			framebuffer_u32[i] = 0xff000000 | framebuffer_24[i]
 	},
-	onAudioSample: function (l, r) {
+	onAudioSample: function (l: number, r: number) {
 		audio_samples_L[audio_write_cursor] = l
 		audio_samples_R[audio_write_cursor] = r
 		audio_write_cursor = (audio_write_cursor + 1) & SAMPLE_MASK
@@ -65,7 +76,8 @@ function audio_remain() {
 	return (audio_write_cursor - audio_read_cursor) & SAMPLE_MASK
 }
 
-function audio_callback(event) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function audio_callback(event: { outputBuffer: any }) {
 	let dst = event.outputBuffer
 	let len = dst.length
 
@@ -83,44 +95,20 @@ function audio_callback(event) {
 	audio_read_cursor = (audio_read_cursor + len) & SAMPLE_MASK
 }
 
-function keyboard(callback, event) {
-	let player1 = 1
-	console.log(`event.keyCode${event.keyCode}`)
-	switch (event.keyCode) {
-		case NeskeyMap.BUTTON_UP: // UP
-			callback(player1, jsnes.Controller.BUTTON_UP)
-			break
-		case NeskeyMap.BUTTON_DOWN: // Down
-			callback(player1, jsnes.Controller.BUTTON_DOWN)
-			break
-		case NeskeyMap.BUTTON_LEFT: // Left
-			callback(player1, jsnes.Controller.BUTTON_LEFT)
-			break
-		case NeskeyMap.BUTTON_RIGHT: // Right
-			callback(player1, jsnes.Controller.BUTTON_RIGHT)
-			break
-		case NeskeyMap.BUTTON_A: // 'a' - qwerty, dvorak
-		case NeskeyMap.BUTTON_Q: // 'q' - azerty
-			callback(player1, jsnes.Controller.BUTTON_A)
-			break
-		case NeskeyMap.BUTTON_S: // 's' - qwerty, azerty
-		case NeskeyMap.BUTTON_O: // 'o' - dvorak
-			callback(player1, jsnes.Controller.BUTTON_B)
-			break
-		case NeskeyMap.BUTTON_SELECT: // Tab
-			callback(player1, jsnes.Controller.BUTTON_SELECT)
-			break
-		case NeskeyMap.BUTTON_START: // Return
-			callback(player1, jsnes.Controller.BUTTON_START)
-			break
-		default:
-			break
+function keyboard(
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	callback: (arg0: number, arg1: any) => void,
+	event: KeyboardEvent
+) {
+	if (event.keyCode in NeskeyMapHandle) {
+		const cur = NeskeyMapHandle[event.keyCode]
+		callback(cur[0], jsnes.Controller[cur[1]])
 	}
 }
 
-function nes_init(canvas_id) {
-	let canvas = document.getElementById(canvas_id)
-	canvas_ctx = canvas.getContext("2d")
+function nes_init(canvas_id: string) {
+	let canvas = document.getElementById(canvas_id) as HTMLCanvasElement
+	canvas_ctx = canvas.getContext("2d")!
 	image = canvas_ctx.getImageData(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
 
 	canvas_ctx.fillStyle = "black"
@@ -138,61 +126,29 @@ function nes_init(canvas_id) {
 	script_processor.connect(audio_ctx.destination)
 }
 
-function nes_boot(rom_data) {
+function nes_boot(rom_data: string) {
 	nes.loadROM(rom_data)
 	window.requestAnimationFrame(onAnimationFrame)
 }
 
-function nes_load_data(canvas_id, rom_data) {
-	nes_init(canvas_id)
-	nes_boot(rom_data)
-}
+export function start(canvas_id: string, path: string) {
+	fetch(path)
+		.then(res => res.json())
+		.then(res => {
+			// 获取Buffer数组
+			const bufferArray = res.data.data
 
-export function start(canvas_id, path) {
-	
+			// 将Buffer数组转换为Uint8Array对象
+			const uint8Array = new Uint8Array(bufferArray)
 
-	nes_init(canvas_id)
-
-	if (path) {
-		// loadScript(path + "?callback=jsonpCallback", nes_boot)
-		fetch(path, {
-			method: "GET",
-			headers: {
-				Accept: "text/plain"
-			}
-		})
-			.then(response => response.text()) // 将响应转换为 Blob 对象
-			.then(blobData => {
-				// 在这里处理获取到的二进制数据（blobData）
-				nes_boot(blobData)
-				// console.log('获取到的二进制数据:', blobData);
+			// 将Uint8Array对象转换为文本形式
+			let binaryText = ""
+			uint8Array.forEach(byte => {
+				binaryText += String.fromCharCode(byte)
 			})
-		// Get({
-		// 	url: path,
-
-		// }).then(res => {
-		// 	console.log(res)
-		// })
-	}
-	/*var req = new XMLHttpRequest();
-	req.open("GET", path);
-	req.overrideMimeType("text/plain; charset=x-user-defined");
-	req.onerror = () => console.log(`Error loading ${path}: ${req.statusText}`);
-	
-	req.onload = function() {
-		if (this.status === 200) {
-		    nes_boot(this.responseText);
-		} else if (this.status === 0) {
-			// Aborted, so ignore error
-		} else {
-			req.onerror();
-		}
-	};
-	
-    req.send();*/
-	// callVscode({cmd: 'getRom', key: 'NES.GETROM'}, (data) => {
-	//console.log('nes data:' + data);
-	// });
+			nes_init(canvas_id)
+			nes_boot(binaryText)
+		})
 }
 
 document.addEventListener("keydown", event => {
@@ -201,7 +157,3 @@ document.addEventListener("keydown", event => {
 document.addEventListener("keyup", event => {
 	keyboard(nes.buttonUp, event)
 })
-
-// export function start() {
-// 	nes_load_url("nes-canvas", "InterglacticTransmissing.nes")
-// }

@@ -1,5 +1,5 @@
-import { useEffect } from "react"
 import { start } from "./game"
+import { Button } from "antd"
 
 const listPath =
 	"https://raw.githubusercontent.com/gamedilong/anes-repository/master/list.json"
@@ -10,12 +10,14 @@ const listPath =
 // }
 
 const HexagonalMesh1 = () => {
-	useEffect(() => {
-		start("game", "http://localhost:8080/superM.nes")
-	}, [])
-
 	return (
 		<>
+			<Button
+				onClick={() => start("game", "http://localhost:3000/api/getGame")}
+				// onClick={() => start("game", "/superM.nes")}
+			>
+				开始游戏
+			</Button>
 			<canvas
 				id="game"
 				width="256"
