@@ -27,7 +27,7 @@ function index() {
 				src={data.picture2}
 				className="full absolute left-0 top-0 z-[-1] object-cover"
 			></img>
-			<div className="full flex flex-col justify-evenly text-left text-white">
+			<div className="full flex select-text flex-col justify-evenly text-left text-white">
 				<p>{data.content}</p>
 				<p>{data.note}</p>
 			</div>

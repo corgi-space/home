@@ -1,8 +1,13 @@
+import { Modal } from "antd"
 import { useOpenApp } from "../../hooks/CreateAppModal"
+import { useEffect } from "react"
 
 function index() {
 	const open = useOpenApp(() => import("./app"))
-
+	useEffect(() => {
+		open()
+		return () => Modal.destroyAll()
+	}, [])
 	return (
 		<div className="appItem-icon cursor-pointer" onClick={open}>
 			<img

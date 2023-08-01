@@ -10,6 +10,7 @@ interface IAppModalOptions {
 	link?: string
 	author?: string
 	width?: string
+	toolTheme?: "light" | "dark"
 	_close?: () => void
 }
 
@@ -18,7 +19,8 @@ interface ModalHandleRef {
 }
 
 const defaultOptions = {
-	width: "800px"
+	width: "800px",
+	toolTheme: "dark"
 } as IAppModalOptions
 
 const AppModal = (Children: FC, options: IAppModalOptions) => {
@@ -59,13 +61,21 @@ const AppModal = (Children: FC, options: IAppModalOptions) => {
 					style={{ padding: "0px" }}
 					className={(fullStatus ? "appMpdal-full" : "") + " appModal"}
 				>
-					<div className="tools">
+					<div
+						className={`tools ${
+							options.toolTheme ? `tools-` + options.toolTheme : ""
+						}`}
+					>
 						<div></div>
 						<div className="flex items-center">
 							<div className="tools-item" onClick={handleFull}>
 								<FullscreenOutlined />
 							</div>
-							<div className="tools-item" onClick={close}>
+							<div
+								className="tools-item hover:!bg-red-500"
+								data-key="close"
+								onClick={close}
+							>
 								<CloseOutlined />
 							</div>
 						</div>
@@ -123,6 +133,7 @@ export const createAppModal = (
 
 	return () => {
 		unmontTask.pause()
+
 		const openRun = () => {
 			if (holder) {
 				holder.open()

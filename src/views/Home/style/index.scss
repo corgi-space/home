@@ -55,9 +55,12 @@
     height: 100%;
   }
   .tools{
-    @apply  sticky top-0 w-full flex box-border justify-between items-center;
+    @apply absolute z-50 top-0 w-full flex box-border justify-between items-center;
     --tools-h: 25px;
     height: var(--tools-h);
+    &.tools-light{
+      color: #fff;
+    }
   }
   .tools-item{
     padding: 0 10px;
@@ -67,6 +70,7 @@
     align-items: center;
     font-size: 14px;
     transition: all .3s;
+    cursor: pointer;
     &:hover{
       color: #fff;
       background-color: #a5a5a5;
