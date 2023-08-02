@@ -83,6 +83,6 @@ const getPosition = () => {
 	}
 }
 
-getPosition()
+// getPosition()
 
 export default useAppStore

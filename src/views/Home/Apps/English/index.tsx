@@ -3,6 +3,7 @@ import { Get } from "@/utils/request"
 import { IDayEnglish } from "./type"
 import LoadingApp from "../../components/LoadingApp"
 import dayjs from "dayjs"
+import { getStorage, setStorage } from "@/utils/storage"
 
 const cacheKey = "dayEnglish"
 
@@ -11,9 +12,15 @@ function index() {
 		() => Get<IDayEnglish>({ url: "/getDayEnglish" }),
 		{
 			cacheKey,
-			staleTime: dayjs().add(1, "day").hour(8).minute(0).diff(dayjs()), // 缓存到明天早上八点
-			setCache: data => localStorage.setItem(cacheKey, JSON.stringify(data)),
-			getCache: () => JSON.parse(localStorage.getItem(cacheKey) || "{}")
+			staleTime: -1,
+			setCache: data =>
+				setStorage({
+					key: cacheKey,
+					data,
+					expirationTime: dayjs().add(1, "d").hour(8).minute(0).diff(dayjs()),
+					fn: localStorage
+				}),
+			getCache: () => getStorage(cacheKey)
 		}
 	)
 

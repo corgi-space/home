@@ -1,8 +1,8 @@
 import { start } from "./game"
 import { Button } from "antd"
 
-const listPath =
-	"https://raw.githubusercontent.com/gamedilong/anes-repository/master/list.json"
+// const listPath =
+// 	"https://raw.githubusercontent.com/gamedilong/anes-repository/master/list.json"
 
 // async function start() {
 // 	const jsnes = await import("http://localhost:8080/jsnes.js")
@@ -13,8 +13,10 @@ const HexagonalMesh1 = () => {
 	return (
 		<>
 			<Button
-				onClick={() => start("game", "http://localhost:3000/api/getGame")}
-				// onClick={() => start("game", "/superM.nes")}
+				// onClick={() =>
+				// 	start("game", "http://localhost:3000/assets/games/彩虹岛.nes")
+				// }
+				onClick={() => start("game", "/rrr.nes")}
 			>
 				开始游戏
 			</Button>

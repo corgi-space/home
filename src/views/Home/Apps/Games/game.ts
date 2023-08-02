@@ -7,6 +7,8 @@ let FRAMEBUFFER_SIZE = SCREEN_WIDTH * SCREEN_HEIGHT
 let canvas_ctx: CanvasRenderingContext2D, image: ImageData
 let framebuffer_u8: ArrayLike<number>, framebuffer_u32
 
+let audio_ctx: AudioContext, script_processor: ScriptProcessorNode
+
 let AUDIO_BUFFERING = 512
 let SAMPLE_COUNT = 4 * 1024
 let SAMPLE_MASK = SAMPLE_COUNT - 1
@@ -14,6 +16,7 @@ let audio_samples_L = new Float32Array(SAMPLE_COUNT)
 let audio_samples_R = new Float32Array(SAMPLE_COUNT)
 let audio_write_cursor = 0,
 	audio_read_cursor = 0
+let status = false
 
 /**
  * 按键映射
@@ -66,10 +69,12 @@ let nes = new jsnes.NES({
 })
 
 function onAnimationFrame() {
-	window.requestAnimationFrame(onAnimationFrame)
+	if (status) {
+		window.requestAnimationFrame(onAnimationFrame)
 
-	image.data.set(framebuffer_u8)
-	canvas_ctx.putImageData(image, 0, 0)
+		image.data.set(framebuffer_u8)
+		canvas_ctx.putImageData(image, 0, 0)
+	}
 }
 
 function audio_remain() {
@@ -80,7 +85,7 @@ function audio_remain() {
 function audio_callback(event: { outputBuffer: any }) {
 	let dst = event.outputBuffer
 	let len = dst.length
-
+	if (!status) return
 	// Attempt to avoid buffer underruns.
 	if (audio_remain() < AUDIO_BUFFERING) nes.frame()
 
@@ -117,32 +122,39 @@ export function init(
 
 	canvas_ctx.fillStyle = "white"
 	canvas_ctx.fillRect(0, 0, width, height)
+}
+
+function beginGame(content: string) {
+	window.requestAnimationFrame(onAnimationFrame)
+
 	// Allocate framebuffer array.
 	let buffer = new ArrayBuffer(image.data.length)
 	framebuffer_u8 = new Uint8ClampedArray(buffer)
 	framebuffer_u32 = new Uint32Array(buffer)
 
 	// Setup audio.
-	let audio_ctx = new window.AudioContext()
-	let script_processor = audio_ctx.createScriptProcessor(AUDIO_BUFFERING, 0, 2)
+	audio_ctx = new window.AudioContext()
+	script_processor = audio_ctx.createScriptProcessor(AUDIO_BUFFERING, 0, 2)
 	script_processor.onaudioprocess = audio_callback
 	script_processor.connect(audio_ctx.destination)
+	nes.loadROM(content)
 }
 
-function nes_boot(rom_data: string) {
-	nes.loadROM(rom_data)
-	window.requestAnimationFrame(onAnimationFrame)
+export function destroyed() {
+	audio_ctx && audio_ctx.close()
+	script_processor && script_processor.disconnect()
+	status = false
 }
 
-export function start(id: string, path: string) {
-	init(id)
-
+export function start(path: string) {
+	destroyed()
 	fetch(path)
 		.then(res => res.arrayBuffer())
 		.then(res => {
+			status = true
 			const decoder = new TextDecoder("x-user-defined")
 			const text = decoder.decode(res)
-			nes_boot(text)
+			beginGame(text)
 		})
 }
 

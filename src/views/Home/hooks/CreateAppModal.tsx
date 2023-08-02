@@ -11,6 +11,8 @@ interface IAppModalOptions {
 	author?: string
 	width?: string
 	toolTheme?: "light" | "dark"
+	hasFull?: boolean
+
 	_close?: () => void
 }
 
@@ -20,7 +22,8 @@ interface ModalHandleRef {
 
 const defaultOptions = {
 	width: "800px",
-	toolTheme: "dark"
+	toolTheme: "dark",
+	hasFull: true
 } as IAppModalOptions
 
 const AppModal = (Children: FC, options: IAppModalOptions) => {
@@ -68,9 +71,12 @@ const AppModal = (Children: FC, options: IAppModalOptions) => {
 					>
 						<div></div>
 						<div className="flex items-center">
-							<div className="tools-item" onClick={handleFull}>
-								<FullscreenOutlined />
-							</div>
+							{options.hasFull ? (
+								<div className="tools-item" onClick={handleFull}>
+									<FullscreenOutlined />
+								</div>
+							) : null}
+
 							<div
 								className="tools-item hover:!bg-red-500"
 								data-key="close"
