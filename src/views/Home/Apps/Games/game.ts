@@ -1,3 +1,4 @@
+import { addZero } from "@/utils"
 import jsnes from "jsnes"
 
 let SCREEN_WIDTH = 256
@@ -120,8 +121,31 @@ export function init(
 	canvas_ctx = canvas.getContext("2d")!
 	image = canvas_ctx.getImageData(0, 0, width, height)
 
-	canvas_ctx.fillStyle = "white"
-	canvas_ctx.fillRect(0, 0, width, height)
+	let num = 0,
+		numRut = true
+	/**
+	 * 待机状态
+	 */
+	const standby = () => {
+		canvas_ctx.fillStyle = "black"
+		canvas_ctx.fillRect(0, 0, width, height)
+		canvas_ctx.fillStyle = "#ffffff" + addZero(numRut ? num++ : num--)
+
+		if (num == 99) {
+			numRut = false
+		} else if (num == 0) {
+			numRut = true
+		}
+		canvas_ctx.font = "14px Arial"
+		canvas_ctx.textAlign = "center"
+		canvas_ctx.textBaseline = "top"
+		canvas_ctx.fillText("👈左侧选择游戏", width / 2, height / 2)
+		if (!status) {
+			window.requestAnimationFrame(standby)
+		}
+	}
+
+	window.requestAnimationFrame(standby)
 }
 
 function beginGame(content: string) {

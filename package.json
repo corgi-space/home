@@ -26,6 +26,7 @@
 		"antd-img-crop": "^4.12.2",
 		"axios": "^1.4.0",
 		"dayjs": "^1.11.9",
+		"gsap": "^3.12.2",
 		"jsnes": "^1.2.1",
 		"localforage": "^1.10.0",
 		"lodash-es": "^4.17.21",

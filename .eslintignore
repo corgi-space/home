@@ -5,10 +5,10 @@ src/assets
 public
 dist
 
-./tsconfig.json
-./tsconfig.node.json
-./package.json
-./pnpm-lock.yaml
+tsconfig.json
+tsconfig.node.json
+package.json
+pnpm-lock.yaml
 
 .prettierrc.js
 

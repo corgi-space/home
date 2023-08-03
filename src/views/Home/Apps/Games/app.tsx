@@ -18,6 +18,7 @@ export const App = () => {
 	)
 
 	const handleClickGame = (gameName: string) => {
+		toggle()
 		start(import.meta.env.VITE_APP_BASE + `assets/games/${gameName}.nes`)
 	}
 
@@ -80,17 +81,28 @@ export const App = () => {
 								<div className="grid grid-cols-3 gap-2">
 									<div
 										className={classNames.ico_key + " col-start-2 col-end-4"}
+										title="上"
 									>
 										W
 									</div>
-									<div className={classNames.ico_key}>A</div>
-									<div className={classNames.ico_key}>S</div>
-									<div className={classNames.ico_key}>D</div>
+									<div className={classNames.ico_key} title="左">
+										A
+									</div>
+									<div className={classNames.ico_key} title="下">
+										S
+									</div>
+									<div className={classNames.ico_key} title="右">
+										D
+									</div>
 								</div>
 							</div>
 							<div className="flex gap-2">
-								<div className={classNames.ico_key}>J</div>
-								<div className={classNames.ico_key}>K</div>
+								<div className={classNames.ico_key} title="A">
+									J
+								</div>
+								<div className={classNames.ico_key} title="B">
+									K
+								</div>
 							</div>
 						</div>
 					</div>
@@ -101,25 +113,40 @@ export const App = () => {
 								<div className="grid grid-cols-3 gap-2">
 									<div
 										className={classNames.ico_key + " col-start-2 col-end-4"}
+										title="上"
 									>
 										↑
 									</div>
-									<div className={classNames.ico_key}>←</div>
-									<div className={classNames.ico_key}>↓</div>
-									<div className={classNames.ico_key}>→</div>
+									<div className={classNames.ico_key} title="左">
+										←
+									</div>
+									<div className={classNames.ico_key} title="下">
+										↓
+									</div>
+									<div className={classNames.ico_key} title="右">
+										→
+									</div>
 								</div>
 							</div>
 							<div className="flex gap-2">
-								<div className={classNames.ico_key}>1</div>
-								<div className={classNames.ico_key}>2</div>
+								<div className={classNames.ico_key} title="A">
+									1
+								</div>
+								<div className={classNames.ico_key} title="B">
+									2
+								</div>
 							</div>
 						</div>
 					</div>
 					<div>
 						<p className="mb-5">system</p>
 						<div className="flex gap-2">
-							<div className={classNames.ico_key}>Tab</div>
-							<div className={classNames.ico_key}>Enter</div>
+							<div className={classNames.ico_key} title="选择">
+								Tab
+							</div>
+							<div className={classNames.ico_key} title="确定/暂停">
+								Enter
+							</div>
 						</div>
 					</div>
 				</div>
