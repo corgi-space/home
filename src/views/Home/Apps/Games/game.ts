@@ -129,17 +129,17 @@ export function init(
 	const standby = () => {
 		canvas_ctx.fillStyle = "black"
 		canvas_ctx.fillRect(0, 0, width, height)
-		canvas_ctx.fillStyle = "#ffffff" + addZero(numRut ? num++ : num--)
+		canvas_ctx.fillStyle = "#ffffff" + addZero(numRut ? num++ : (num -= 2))
 
-		if (num == 99) {
+		if (num == 98) {
 			numRut = false
-		} else if (num == 0) {
+		} else if (num == 20) {
 			numRut = true
 		}
 		canvas_ctx.font = "14px Arial"
 		canvas_ctx.textAlign = "center"
 		canvas_ctx.textBaseline = "top"
-		canvas_ctx.fillText("👈左侧选择游戏", width / 2, height / 2)
+		canvas_ctx.fillText("👈左侧选择游戏", width / 2, height / 2 - 10)
 		if (!status) {
 			window.requestAnimationFrame(standby)
 		}

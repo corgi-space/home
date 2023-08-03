@@ -66,12 +66,12 @@ const AppModal = (Children: FC, options: IAppModalOptions) => {
 				>
 					<div
 						className={`tools ${
-							options.toolTheme ? `tools-` + options.toolTheme : ""
+							_options.toolTheme ? `tools-` + _options.toolTheme : ""
 						}`}
 					>
 						<div></div>
 						<div className="flex items-center">
-							{options.hasFull ? (
+							{_options.hasFull ? (
 								<div className="tools-item" onClick={handleFull}>
 									<FullscreenOutlined />
 								</div>
