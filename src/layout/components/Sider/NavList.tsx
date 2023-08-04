@@ -3,6 +3,7 @@ import CarbonShoppingCart from "~icons/carbon/shopping-cart"
 import CarbonHome from "~icons/carbon/home"
 import CarbonChartRadial from "~icons/carbon/chart-radial"
 import CarbonDataCategorical from "~icons/carbon/data-categorical"
+import siderStyle from "./index.module.scss"
 
 const HeaderItems = [
 	{ icon: <CarbonHome />, key: "/", label: "首页" },
@@ -19,24 +20,24 @@ function navList() {
 	}
 	// h-[calc(100%-80px-160px)]
 	return (
-		<div className="my-6 flex flex-1 flex-col justify-center overflow-y-auto overflow-x-hidden pl-[15px]">
+		<div className="my-6 flex flex-1 flex-col justify-center gap-y-2 overflow-y-auto overflow-x-hidden pl-[15px]">
 			{HeaderItems.map(item => (
 				<div
 					key={item.key}
 					onClick={() => clickItem(item.key)}
 					className={
-						(localtion.pathname === item.key
-							? "text-primary opacity-100"
-							: "opacity-50") +
-						" mb-2 box-border flex h-10 flex-shrink-0 origin-left cursor-pointer items-center overflow-hidden whitespace-nowrap transition-transform hover:scale-[1.1] hover:opacity-100"
+						siderStyle.sideItem +
+						(localtion.pathname === item.key ? " text-primary opacity-100" : "")
 					}
 				>
-					<div className="mr-3 shrink-0 text-lg leading-[0px] transition-all">
+					<div
+						className={
+							siderStyle["sideItem--icon"] + " text-[18px]  group-hover:w-fit"
+						}
+					>
 						{item.icon}
 					</div>
-					<p className="my-0 leading-[0px] opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-						{item.label}
-					</p>
+					<p className={siderStyle["sideItem--label"]}>{item.label}</p>
 				</div>
 			))}
 		</div>

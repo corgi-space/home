@@ -18,15 +18,12 @@ function userBox() {
 	}
 
 	return (
-		<div
-			className="relative cursor-pointer select-none hover:opacity-70"
-			onClick={handleClick}
-		>
+		<div className="relative cursor-pointer select-none" onClick={handleClick}>
 			<img
 				src={userInfo?.photo || ""}
-				className="absolute left-[5px] top-1 z-10 h-10 w-10 rounded-full transition-all group-hover:h-12 group-hover:w-12 group-hover:translate-x-1"
+				className="pointer-events-none absolute left-[5px] top-1 z-10 h-10 w-10 rounded-full transition-all group-hover:h-12 group-hover:w-12 group-hover:translate-x-1"
 			/>
-			<div className="flex h-12 items-center justify-between rounded-xl bg-white py-1 pl-2 pr-1 opacity-0 shadow shadow-sky-800/20 transition-opacity group-hover:opacity-100 dark:bg-gray-700">
+			<div className="flex h-12 items-center justify-between rounded-xl bg-white py-1 pl-2 pr-1 opacity-0 shadow shadow-sky-800/20 transition-opacity hover:shadow-inner group-hover:opacity-100 dark:bg-gray-700">
 				{userInfo && userInfo.memberId ? (
 					<>
 						<div className="flex h-full flex-col justify-around whitespace-nowrap pl-14">
