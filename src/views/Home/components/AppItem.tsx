@@ -1,8 +1,8 @@
 import { Suspense, memo, useMemo } from "react"
-import { IAppIcon, SizeConfig } from "../appList"
 import { isString } from "lodash-es"
-import { Apps } from "../Apps"
+import { Apps, SizeConfig } from "../Apps"
 import LoadingApp from "./LoadingApp"
+import { IAppIcon } from "../type"
 
 function AppItem({ item }: { item: IAppIcon }) {
 	const style = useMemo<React.CSSProperties>(() => {

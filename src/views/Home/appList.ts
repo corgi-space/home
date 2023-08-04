@@ -1,31 +1,16 @@
-import { IAppSize } from "./type"
+import { IAppBaseItem } from "./type"
 
-export const SizeConfig = {
-	small: [1, 1],
-	normal: [2, 2],
-	big: [4, 2]
-} as const
-
-export interface IAppIcon {
-	id: number
-	size: IAppSize
-	app: string
-}
-
-export const defaultList: IAppIcon[] = [
+export const defaultList: IAppBaseItem[] = [
 	{
 		id: 1,
-		size: "normal",
 		app: "Eat"
 	},
 	{
 		id: 2,
-		size: "small",
 		app: "Games"
 	},
 	{
 		id: 3,
-		size: "big",
 		app: "English"
 	}
 ]

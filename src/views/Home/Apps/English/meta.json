@@ -1,5 +1,5 @@
 {
-  "name": "每日英语",
-  "description": "每天一段英语句子",
-  "sizes": ["normal"]
+	"name": "每日英语",
+	"description": "每天一段英语句子",
+	"size": "normal"
 }

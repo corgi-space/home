@@ -29,3 +29,12 @@ for (const path in metaModules) {
 		}
 	})
 }
+
+/**
+ * 预设AppSize
+ */
+export const SizeConfig = {
+	small: [1, 1],
+	normal: [2, 2],
+	big: [4, 2]
+} as const
