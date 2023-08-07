@@ -4,6 +4,7 @@ build/*.js
 src/assets
 public
 dist
+report
 
 tsconfig.json
 tsconfig.node.json

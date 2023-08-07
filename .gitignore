@@ -6,6 +6,7 @@ dist-ssr
 .eslintcache
 report.html
 .npmrc
+report
 
 yarn.lock
 npm-debug.log*
