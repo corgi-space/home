@@ -22,7 +22,7 @@ function index() {
 			style={{
 				background: bgColor
 			}}
-			className="group fixed left-0 top-0 z-10 box-border flex h-full w-[var(--sider-initWidth)] flex-col overflow-hidden py-4 shadow transition-all hover:w-[180px] hover:px-3"
+			className="group fixed left-0 top-0 z-10 box-border flex h-full w-[var(--sider-initWidth)] flex-col overflow-hidden py-4 opacity-30 shadow transition-all hover:w-[180px] hover:px-3 hover:opacity-100"
 		>
 			<div className="box-border flex h-[40px] items-center overflow-hidden whitespace-nowrap px-[9px]">
 				<img

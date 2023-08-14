@@ -1,16 +1,16 @@
 import type { FC } from "react"
-import { Outlet, useNavigate } from "react-router-dom"
-import {
-	CloudServerOutlined,
-	HomeOutlined,
-	MacCommandOutlined
-} from "@ant-design/icons"
-import Tools from "./components/Tools"
-import Wallpaper from "./components/Wallpaper"
+import { Outlet } from "react-router-dom"
+// import {
+// 	CloudServerOutlined,
+// 	HomeOutlined,
+// 	MacCommandOutlined
+// } from "@ant-design/icons"
+// import Tools from "./components/Tools"
+// import Wallpaper from "./components/Wallpaper"
 import Sider from "./components/Sider"
 
 export const Layout: FC = () => {
-	const navigate = useNavigate()
+	// const navigate = useNavigate()
 
 	// const {
 	// 	token: { colorBgContainer }
