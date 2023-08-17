@@ -42,7 +42,7 @@ function index(props: { children: ReactNode }) {
 			</div>
 			<div className="container mx-auto box-border flex h-full flex-col py-4 text-center">
 				<TimeBox className="mb-4" />
-				<div className="flex-1">{props.children}</div>
+				<div className="flex-1 overflow-auto">{props.children}</div>
 			</div>
 		</div>
 	)
