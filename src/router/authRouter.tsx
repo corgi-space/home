@@ -3,29 +3,29 @@ import type { FC } from "react"
 import useUserStore, { tokenComputed } from "@/store/userStore"
 // import { MenuAction } from "@/store/modules/userStore"
 
-const whiteList = ["/login", "/test"]
+// const whiteList = ["/login", "/test"]
 
 /**
  * @description 路由守卫组件
  * */
 function AuthRouterWrapped(WrappedComponent: FC) {
 	const AuthRouter = () => {
-		const { pathname } = useLocation()
-		const token = useUserStore(tokenComputed)
+		// const { pathname } = useLocation()
+		// const token = useUserStore(tokenComputed)
 		// const dispatch = useAppDispatch()
 
 		// * 判断是否有Token
-		if (!token) {
-			if (whiteList.includes(pathname)) {
-				return <WrappedComponent />
-			} else {
-				return <Navigate to="/login" />
-			}
-		}
+		// if (!token) {
+		// 	if (whiteList.includes(pathname)) {
+		// 		return <WrappedComponent />
+		// 	} else {
+		// 		return <Navigate to="/login" />
+		// 	}
+		// }
 
-		if (pathname === "/login") {
-			return <Navigate to="/" />
-		}
+		// if (pathname === "/login") {
+		// 	return <Navigate to="/" />
+		// }
 
 		// 动态路由
 		// if (!menu.length) {

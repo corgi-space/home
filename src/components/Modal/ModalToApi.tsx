@@ -1,13 +1,12 @@
-import useAppStore from "@/store/appStore"
-import { getThemeConfig } from "@/styles/theme"
+import { store } from "@/store"
+import { getThemeConfig } from "@/styles/styles"
 import { ConfigProvider, Modal } from "antd"
 import {
 	forwardRef,
 	memo,
 	useImperativeHandle,
 	useState,
-	ReactNode,
-	Ref
+	ReactNode
 } from "react"
 import { Root, createRoot } from "react-dom/client"
 import zhCN from "antd/lib/locale/zh_CN"
@@ -16,29 +15,40 @@ type IImportComp<IO, IR> = ({
 	options,
 	handle
 }: {
-	options: IOptionsWithHandle<IO>
+	options: IOPtionsWithHandle<IO>
 	handle: {
 		setTitle: (e: ReactNode) => void
 		onOk: (e: () => IR) => void
-		beforeOk: (e: () => boolean | Promise<Boolean>) => void
+		beforeOk: (
+			e: () => boolean | void | Promise<Boolean> | Promise<void>
+		) => void
 	}
 }) => JSX.Element
 
-type IOptionsWithHandle<T> = T & {
-	_onOk: (e: unknown) => void
+type IOPtionsWithHandle<T> = T & {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	_onOk: (e: any) => void
 	_onCancel: () => void
-}
-
-export interface ModalRef<T = unknown> {
-	open: (_options: T) => void
 }
 
 interface IHandle {
 	title: string
+	/**
+	 * 销毁延迟
+	 * 默认1.5s后销毁弹框
+	 */
 	delay: number
 	width?: string | number | undefined
 	zIndex: number
+	destroyOnClose: boolean
 }
+
+const defaltOptions = {
+	delay: 1500,
+	title: "提示",
+	zIndex: 1000,
+	destroyOnClose: true
+} as IHandle
 
 const createModal = <IO, IR>(
 	children: IImportComp<IO, IR>,
@@ -46,14 +56,11 @@ const createModal = <IO, IR>(
 ) => {
 	const Children = memo(children)
 
-	const customModal = (
-		_: unknown,
-		ref: Ref<ModalRef<IOptionsWithHandle<IO>>> | undefined
-	) => {
-		const { theme, themeColor } = useAppStore.getState()
-		const themeConfig = getThemeConfig(theme, themeColor)
+	const customModal = (_, ref) => {
+		const { theme } = store.getState().appStore
+		const themeConfig = getThemeConfig(theme)
 		const [isModalOpen, setIsModalOpen] = useState(false)
-		const [options, setOptions] = useState<IOptionsWithHandle<IO>>()
+		const [options, setOptions] = useState<IOPtionsWithHandle<IO>>()
 		const [title, setTitle] = useState<ReactNode>(control.title)
 		let okFunc: Function | null = null
 		let beforeOkFunc: Function | null = null
@@ -69,7 +76,7 @@ const createModal = <IO, IR>(
 			if (beforeOkFunc) {
 				const res = await beforeOkFunc()
 
-				if (!res) return
+				if (res === false) return
 			}
 
 			if (options) {
@@ -79,10 +86,11 @@ const createModal = <IO, IR>(
 		}
 
 		const handleCancel = () => {
+			options?._onCancel()
 			setIsModalOpen(false)
 		}
 
-		const open = (_options: IOptionsWithHandle<IO>) => {
+		const open = (_options: IOPtionsWithHandle<IO>) => {
 			setOptions(_options)
 			setIsModalOpen(true)
 		}
@@ -97,10 +105,12 @@ const createModal = <IO, IR>(
 					maskClosable={false}
 					width={control.width}
 					title={title}
+					destroyOnClose={control.destroyOnClose}
 					zIndex={control.zIndex}
 					open={isModalOpen}
 					onOk={handleOk}
 					onCancel={handleCancel}
+					bodyStyle={{ marginTop: "20px", marginBottom: "20px" }}
 				>
 					<Children options={options!} handle={{ setTitle, onOk, beforeOk }} />
 				</Modal>
@@ -111,17 +121,17 @@ const createModal = <IO, IR>(
 	return customModal
 }
 
-const defaltOptions = {
-	delay: 1500,
-	title: "提示",
-	zIndex: 1000
-} as IHandle
-
+/**
+ * 已函数的形式封装 Modal
+ * @param children
+ * @param _options
+ */
 const ModalToApi = <IO, IR>(
 	children: IImportComp<IO, IR>,
 	_options?: Partial<IHandle>
 ) => {
-	let holder: ModalRef<IOptionsWithHandle<IO>> | undefined, root: Root
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	let holder: any, root: Root
 
 	const control: IHandle = Object.assign({}, defaltOptions, _options)
 
@@ -152,7 +162,7 @@ const ModalToApi = <IO, IR>(
 			}
 		},
 		start() {
-			if (this.delay) {
+			if (this.delay && !control.destroyOnClose) {
 				this.timer = setTimeout(unmount, this.delay)
 			}
 		}
@@ -160,7 +170,7 @@ const ModalToApi = <IO, IR>(
 
 	const Comp = forwardRef(createModal(children, control))
 
-	return <T extends IR>(options?: IO): Promise<T | null> => {
+	return (options?: IO): Promise<IR | null> => {
 		unmontTask.pause()
 
 		return new Promise(resolve => {
@@ -168,7 +178,7 @@ const ModalToApi = <IO, IR>(
 				if (holder) {
 					holder.open({
 						...options,
-						_onOk: (value: T) => {
+						_onOk: (value: IR) => {
 							unmontTask.start()
 							resolve(value)
 						},
@@ -176,7 +186,7 @@ const ModalToApi = <IO, IR>(
 							unmontTask.start()
 							resolve(null)
 						}
-					} as IOptionsWithHandle<IO>)
+					})
 				} else {
 					Promise.resolve().then(() => {
 						openRun()

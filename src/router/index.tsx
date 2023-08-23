@@ -3,11 +3,11 @@ import Login from "@/views/Login"
 
 // import type { IRouteObject } from "@/types/index"
 import NotFound from "@/views/404"
-import Test from "@/views/Test"
 import { Layout } from "@/layout"
 import Home from "@/views/Home"
 import authRouter from "./authRouter"
 import DevOps from "@/views/DevOps"
+import { loadView } from "./load"
 // export { getRouterArray } from "./routerArray"
 
 export const RootRouter = [
@@ -42,13 +42,17 @@ export const RootRouter = [
 						></micro-app>
 					</div>
 				)
+			},
+			{
+				path: "/test",
+				name: "test",
+				element: loadView(() => import("@/views/Test"))
+			},
+			{
+				path: "/userInfo",
+				element: loadView(() => import("@/views/UserInfo"))
 			}
 		]
-	},
-	{
-		path: "/test",
-		name: "test",
-		element: <Test />
 	},
 	{
 		path: "/login",

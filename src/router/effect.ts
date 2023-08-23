@@ -9,10 +9,6 @@ import type { IRouteObject, ISearchItem } from "@/types"
 import { recursionFilter, recursionFn } from "@/utils"
 import { store } from "@/store"
 
-export function loadView(view: () => Promise<any>) {
-	return Load(lazy(view))
-}
-
 function forMatPath(a: string) {
 	return a.replaceAll("/", "")
 }

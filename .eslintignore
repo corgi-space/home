@@ -4,11 +4,12 @@ build/*.js
 src/assets
 public
 dist
+report
 
 tsconfig.json
 tsconfig.node.json
 package.json
-*.yaml
+pnpm-lock.yaml
 
 .prettierrc.js
 

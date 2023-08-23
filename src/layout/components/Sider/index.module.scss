@@ -1,0 +1,25 @@
+.sideItem {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 8px 0;
+  transition: all .2s;
+  opacity: .5;
+  transform-origin: left;
+  &:hover{
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+.sideItem--icon{
+  margin-right: 12px;
+  flex-shrink: 0;
+  line-height: 0;
+  width: 100%;
+}
+
+.sideItem--label{
+  line-height: 0;
+}

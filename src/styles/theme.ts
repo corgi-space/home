@@ -9,7 +9,8 @@ export function getThemeConfig(curTheme: "dark" | "light", themeColor: string) {
 		algorithm:
 			curTheme === "dark" ? theme.darkAlgorithm : theme.defaultAlgorithm,
 		token: {
-			colorPrimary: themeColor
+			colorPrimary: themeColor,
+			fontFamily: "inherit"
 		}
 	}
 }

@@ -3,7 +3,7 @@ const ExpirationTime = 7 * 24 * 60 * 60 * 1000 // 过期时间 7天
 export function getStorage<T = unknown>(
 	key: string,
 	fn: Storage = localStorage
-): T | null {
+): T | undefined {
 	let res: unknown
 	const item = fn.getItem(key)
 	if (item) {
@@ -13,7 +13,7 @@ export function getStorage<T = unknown>(
 			res = value
 		} else {
 			fn.removeItem(key)
-			return null
+			return undefined
 		}
 	}
 

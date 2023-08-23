@@ -1,0 +1,22 @@
+:root{
+  --theme-color: #ff752a;
+  --theme-hover-color: #ffa16e;
+  --danger-color: #ff4d4f;
+  --glass-opacity: 0.8;
+  --glass-blur: 0;
+  --wallpaper-blur: 1px;
+  --wallpaper-opacity: 0;
+  --wharf-height: 60px;
+  --sider-initWidth: 50px;
+}
+
+
+.light{
+  --text-color: #444;
+  --bg-color: #f1f1f1;
+}
+
+.dark{
+  --text-color: #f1f1f1;
+  --bg-color: #222628;
+}
