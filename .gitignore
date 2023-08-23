@@ -4,7 +4,7 @@ dist
 dist-ssr
 *.local
 .eslintcache
-report.html
+report
 .npmrc
 
 yarn.lock
