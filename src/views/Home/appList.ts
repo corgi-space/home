@@ -16,5 +16,25 @@ export const defaultList: IAppBaseItem[] = [
 	{
 		id: 4,
 		app: "News"
+	},
+	{
+		id: 5,
+		app: "Eat"
+	},
+	{
+		id: 6,
+		app: "Games"
+	},
+	{
+		id: 61,
+		app: "Games"
+	},
+	{
+		id: 62,
+		app: "Games"
+	},
+	{
+		id: 7,
+		app: "English"
 	}
 ]

@@ -37,14 +37,16 @@ function index() {
 	}
 
 	return (
-		<div className="appItem-icon cursor-pointer overflow-hidden  bg-gray-800 bg-opacity-80 p-2 text-slate-300 backdrop-blur-[2px]">
+		<div className="appItem-icon cursor-pointer overflow-hidden  bg-gray-300 bg-opacity-80 p-2 text-slate-700 backdrop-blur-[2px] dark:bg-gray-800 dark:text-slate-300">
 			<div className="flex gap-2">
 				{list?.map(item => (
 					<div
 						key={item.key}
 						className={
 							"rounded-md bg-opacity-50 p-1 text-xs " +
-							(activeKey === item.key ? "bg-gray-400 text-white" : "")
+							(activeKey === item.key
+								? "bg-gray-400 text-slate-800 dark:text-white"
+								: "")
 						}
 						onMouseOver={() => changeKey(item.key)}
 					>

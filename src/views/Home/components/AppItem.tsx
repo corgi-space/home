@@ -16,7 +16,9 @@ function AppItem({ item }: { item: IAppIcon }) {
 		return {
 			gridColumn: `span ${col}`,
 			gridRow: `span ${row}`,
-			fontSize: item.size === "small" ? "12px" : "14px"
+			fontSize: item.size === "small" ? "12px" : "14px",
+			width: `cacl(${col} * var(--app-size))`,
+			height: `cacl(${row} * var(--app-size))`
 		}
 	}, [item.size])
 

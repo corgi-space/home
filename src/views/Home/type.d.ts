@@ -6,7 +6,7 @@ interface IAppMeta {
 	size: IAppSize
 }
 
-type IAppSize = keyof typeof SizeConfig & [number, number]
+type IAppSize = keyof typeof SizeConfig | [number, number]
 
 type IAppProps = {
 	size: IAppSize

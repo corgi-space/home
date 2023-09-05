@@ -7,10 +7,11 @@
 	"keywords": [],
 	"scripts": {
 		"dev": "vite",
-		"build": "tsc && vite build",
+		"build": "vite build",
 		"preview": "vite preview",
 		"lint": "eslint --fix --ext .js,.ts,.tsx ./src",
 		"test": "vitest",
+		"tsc": "tsc",
 		"prepare": "husky install",
 		"commit": "git add -A && cz"
 	},

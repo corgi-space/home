@@ -1,5 +1,5 @@
-import { store } from "@/store"
-import { getThemeConfig } from "@/styles/styles"
+import useAppStore from "@/store/appStore"
+import { getThemeConfig } from "@/styles/theme"
 import { ConfigProvider, Modal } from "antd"
 import {
 	forwardRef,
@@ -57,7 +57,7 @@ const createModal = <IO, IR>(
 	const Children = memo(children)
 
 	const customModal = (_, ref) => {
-		const { theme } = store.getState().appStore
+		const { theme } = useAppStore()
 		const themeConfig = getThemeConfig(theme)
 		const [isModalOpen, setIsModalOpen] = useState(false)
 		const [options, setOptions] = useState<IOPtionsWithHandle<IO>>()

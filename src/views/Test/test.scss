@@ -1,0 +1,9 @@
+.ggg{
+  display: grid;
+  grid-template-columns: repeat(auto-fill,60px);
+  grid-template-rows: repeat(auto-fill,60px);
+  gap: 30px;
+  justify-content: center;
+  align-content: center;
+  grid-auto-flow: dense;
+}

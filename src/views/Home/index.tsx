@@ -47,10 +47,10 @@ function Home() {
 		})
 		return a
 	}, [list, loadStatus])
-
+	console.log(AppList)
 	return (
 		<Theme>
-			<div className="grid-container h-full w-full">
+			<div className="grid-container w-full">
 				{loadStatus
 					? AppList &&
 					  AppList.map(item => <AppItem key={item.id} item={item} />)
