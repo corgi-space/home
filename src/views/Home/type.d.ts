@@ -1,9 +1,12 @@
 import { SizeConfig } from "./Apps"
+import {} from "react"
 
 interface IAppMeta {
-	name: string
-	description: string
-	size: IAppSize
+	readonly app: string
+	readonly name: string
+	readonly description: string
+	readonly size: IAppSize
+	readonly index: FC
 }
 
 type IAppSize = keyof typeof SizeConfig | [number, number]

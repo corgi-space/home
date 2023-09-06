@@ -3,7 +3,7 @@ import { createAppModal } from "../../hooks/CreateAppModal"
 import useEat from "./useEat"
 import BgPath from "./assets/bg.svg"
 
-const EatApp = createAppModal(() => {
+export const App = () => {
 	const { run, runing, content, foods, changeContent } = useEat()
 
 	return (
@@ -33,6 +33,6 @@ const EatApp = createAppModal(() => {
 			</div>
 		</div>
 	)
-})
+}
 
-export default EatApp
+export default createAppModal(App)

@@ -1,15 +1,13 @@
 import { MouseEvent } from "react"
-import EatApp from "./app"
 import useEat from "./useEat"
 import BgPath from "./assets/bg.svg"
 import { Button } from "antd"
+import { useOpenApp } from "../../hooks/CreateAppModal"
 
 function index() {
 	const { run, runing, content } = useEat()
 
-	const openApp = () => {
-		EatApp()
-	}
+	const open = useOpenApp(() => import("./app"))
 
 	const clickRun = (e: MouseEvent<HTMLButtonElement>) => {
 		e.stopPropagation()
@@ -24,7 +22,7 @@ function index() {
 				backgroundPosition: "-160px -60px",
 				backgroundSize: "cover"
 			}}
-			onClick={openApp}
+			onClick={open}
 		>
 			<h3>{content}</h3>
 			<Button

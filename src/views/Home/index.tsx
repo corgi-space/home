@@ -1,60 +1,37 @@
 import Theme from "./theme"
 import "./style/index.scss"
-import { defaultList } from "./appList"
-import { useLocalStorageState } from "ahooks"
 import AppItem from "./components/AppItem"
-import { AppMetas, Apps } from "./Apps/index"
-import { useState, useEffect, useMemo } from "react"
-import { IAppBaseItem, IAppIcon } from "./type"
+// import { useEffect } from "react"
+// import { IAppMeta } from "./type"
+// import { useSet } from "ahooks"
+// const metaModules = import.meta.glob("./Apps/*/meta.ts")
+import { AppMetas } from "./Apps"
 
 /**
  * 等待Apps加载完成
  */
-function useLoadApps() {
-	const [loadStatus, setLoadStatus] = useState(!!Object.keys(Apps).length)
+// function useloadApps() {
+// 	const [AppList, { add }] = useSet<IAppMeta>([])
 
-	useEffect(() => {
-		if (!loadStatus) {
-			const timer = setInterval(() => {
-				const appMatasLength = Object.keys(AppMetas).length
-				const appLength = Object.keys(Apps).length
+// 	useEffect(() => {
+// 		Object.keys(metaModules).forEach(async path => {
+// 			metaModules[path]().then(mod => {
+// 				const meta = (mod as { default: IAppMeta }).default
+// 				add(meta)
+// 			})
+// 		})
+// 	}, [])
 
-				if (appLength && appMatasLength) {
-					setLoadStatus(true)
-					clearTimeout(timer)
-				}
-			}, 60)
-			return () => clearInterval(timer)
-		}
-	}, [])
-
-	return loadStatus
-}
+// 	return Array.from(AppList)
+// }
 
 function Home() {
-	const loadStatus = useLoadApps()
-	const [list] = useLocalStorageState<IAppBaseItem[]>("appList", {
-		defaultValue: defaultList
-	})
-
-	const AppList = useMemo<IAppIcon[] | null>(() => {
-		if (!list || !loadStatus) return null
-		const a = list.map(item => {
-			return {
-				...item,
-				...AppMetas[item.app]
-			}
-		})
-		return a
-	}, [list, loadStatus])
-	console.log(AppList)
 	return (
 		<Theme>
 			<div className="grid-container w-full">
-				{loadStatus
-					? AppList &&
-					  AppList.map(item => <AppItem key={item.id} item={item} />)
-					: null}
+				{AppMetas.map(item => (
+					<AppItem key={item.app} item={item} />
+				))}
 			</div>
 		</Theme>
 	)

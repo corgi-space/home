@@ -1,34 +1,34 @@
-import { lazy } from "react"
-import { IAppMeta } from "../type"
+import Eat from "./Eat/meta"
+import English from "./English/meta"
+import Games from "./Games/meta"
+import News from "./News/meta"
 
-const metaModules = import.meta.glob("./*/meta.json")
+export const AppMetas = [Eat, English, Games, News]
 
-export const AppMetas: Record<string, IAppMeta> = {}
-export const Apps: Record<
-	string,
-	{
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		content: React.LazyExoticComponent<React.ComponentType<any>>
-		name: string
-	}
-> = {}
+// const metaModules = import.meta.glob("./*/meta.ts")
 
-for (const path in metaModules) {
-	metaModules[path]().then(mod => {
-		const match = path.match(/\/(\w+)\//)
-		if (!match) {
-			console.error("未找到匹配项", path)
-			return
-		}
-		const key = match[1]
-		const meta = (mod as { default: IAppMeta }).default
-		AppMetas[key] = meta
-		Apps[key] = {
-			content: lazy(() => import(`./${key}/index.tsx`)),
-			name: meta.name
-		}
-	})
-}
+// export const AppMetas: Record<string, IAppMeta> = {}
+// export const Apps: Record<
+// 	string,
+// 	{
+// 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// 		content: React.LazyExoticComponent<React.ComponentType<any>>
+// 		name: string
+// 	}
+// > = {}
+
+// for (const path in metaModules) {
+// 	metaModules[path]().then(async mod => {
+// 		const match = path.match(/\/(\w+)\//)
+// 		if (!match) {
+// 			console.error("未找到匹配项", path)
+// 			return
+// 		}
+// 		const key = match[1]
+// 		const meta = (mod as { default: IAppMeta }).default
+// 		AppMetas[key] = meta
+// 	})
+// }
 
 /**
  * 预设AppSize

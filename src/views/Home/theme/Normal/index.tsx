@@ -30,7 +30,7 @@ function index(props: { children: ReactNode }) {
 			<div className="full fixed left-0 top-0 -z-[1]">
 				{theme === "dark" ? (
 					<div
-						className="full absolute z-[1] backdrop-blur-sm backdrop-brightness-90"
+						className="full absolute z-[1] backdrop-brightness-75"
 						style={{ transform: "translateZ(0)" }}
 					></div>
 				) : null}

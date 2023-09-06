@@ -1,10 +1,10 @@
 import { Suspense, memo, useMemo } from "react"
 import { isString } from "lodash-es"
-import { Apps, SizeConfig } from "../Apps"
+import { SizeConfig } from "../Apps"
 import LoadingApp from "./LoadingApp"
-import { IAppIcon } from "../type"
+import { IAppMeta } from "../type"
 
-function AppItem({ item }: { item: IAppIcon }) {
+function AppItem({ item }: { item: IAppMeta }) {
 	const style = useMemo<React.CSSProperties>(() => {
 		let col, row
 		if (isString(item.size)) {
@@ -17,18 +17,17 @@ function AppItem({ item }: { item: IAppIcon }) {
 			gridColumn: `span ${col}`,
 			gridRow: `span ${row}`,
 			fontSize: item.size === "small" ? "12px" : "14px",
-			width: `cacl(${col} * var(--app-size))`,
-			height: `cacl(${row} * var(--app-size))`
+			width: `calc(${col} * var(--app-size) + ${col - 1} * var(--app-gap))`,
+			height: `calc(${row} * var(--app-size) + ${row - 1} * var(--app-gap))`
 		}
 	}, [item.size])
 
-	const App = Apps[item.app]
-
+	const App = useMemo(() => item["index"], [])
 	return (
-		<div key={item.id} className="appItem" style={style}>
-			<Suspense fallback={<LoadingApp />}>
-				<App.content size={item.size}></App.content>
-			</Suspense>
+		<div className="appItem" style={style}>
+			{/* <Suspense fallback={<LoadingApp />}> */}
+			<App size={item.size}></App>
+			{/* </Suspense> */}
 			<p className="appItem-title">{App.name}</p>
 		</div>
 	)

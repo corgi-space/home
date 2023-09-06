@@ -1,4 +1,3 @@
-import { ThemeColor } from "@/config"
 import useAppStore from "@/store/appStore"
 import { getThemeConfig } from "@/styles/theme"
 import { CloseOutlined, FullscreenOutlined } from "@ant-design/icons"
@@ -30,7 +29,7 @@ const AppModal = (Children: FC, options: IAppModalOptions) => {
 	const customModal = (_: unknown, ref: Ref<ModalHandleRef>) => {
 		const _options = Object.assign({}, defaultOptions, options)
 		const { theme } = useAppStore.getState()
-		const themeConfig = getThemeConfig(theme, ThemeColor)
+		const themeConfig = getThemeConfig(theme)
 		const [isModalOpen, setIsModalOpen] = useState(false)
 		const [fullStatus, setFullStatus] = useState(false)
 
