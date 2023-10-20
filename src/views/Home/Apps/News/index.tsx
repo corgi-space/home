@@ -46,7 +46,7 @@ function index() {
 	}
 
 	return (
-		<div className="appItem-icon cursor-pointer overflow-hidden  bg-[#bbb3ac] bg-opacity-80 p-2 text-slate-700 backdrop-blur-[4px] dark:bg-[#363432cc] dark:text-slate-300">
+		<div className="appItem-icon cursor-pointer overflow-hidden  bg-[#fbf5f0bb] bg-opacity-80 p-2 text-slate-700 backdrop-blur-[4px] dark:bg-[#363432cc] dark:text-slate-300">
 			<div className="flex gap-2">
 				{list?.map(item => (
 					<div
@@ -68,6 +68,7 @@ function index() {
 						key={item.id}
 						className="my-2 block truncate text-left no-underline visited:text-gray-500 hover:underline"
 						target="__blank"
+						title={item.title}
 					>
 						{index + 1}. {item.title}
 					</a>

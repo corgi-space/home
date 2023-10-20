@@ -25,10 +25,10 @@ function AppItem({ item }: { item: IAppMeta }) {
 	const App = useMemo(() => item["index"], [])
 	return (
 		<div className="appItem" style={style}>
-			{/* <Suspense fallback={<LoadingApp />}> */}
-			<App size={item.size}></App>
-			{/* </Suspense> */}
-			<p className="appItem-title">{App.name}</p>
+			<Suspense fallback={<LoadingApp />}>
+				<App size={item.size}></App>
+			</Suspense>
+			<p className="appItem-title">{item.name}</p>
 		</div>
 	)
 }
